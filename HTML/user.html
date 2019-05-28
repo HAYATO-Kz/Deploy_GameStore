@@ -97,29 +97,29 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">First and last name</span>
                             </div>
-                            <input type="text" aria-label="First name" class="form-control" id="firstNameEdit">
-                            <input type="text" aria-label="Last name" class="form-control" id="lastNameEdit">
+                            <input type="text" aria-label="First name" class="form-control" id="firstNameEdit" onclick="reset(this.id)">
+                            <input type="text" aria-label="Last name" class="form-control" id="lastNameEdit" onclick="reset(this.id)">
                         </div>
 
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1">Age</span>
                             </div>
-                            <input type="number" class="form-control" aria-label="Age" id="ageEdit">
+                            <input type="number" class="form-control" aria-label="Age" id="ageEdit" onclick="reset(this.id)">
                         </div>
                         
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1">Email</span>
                             </div>
-                            <input type="Email" class="form-control" aria-label="Email" id="emailEdit">
+                            <input type="Email" class="form-control" aria-label="Email" id="emailEdit" onclick="reset(this.id)">
                         </div>
 
                         <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1">Address</span>
                                 </div>
-                                <textarea class="form-control" id="addressEdit" rows="3"></textarea>
+                                <textarea class="form-control" id="addressEdit" rows="3" onclick="reset(this.id)"></textarea>
                             </div>
 
                     </div>

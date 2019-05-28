@@ -18,5 +18,8 @@ function initialData(){
     el = document.getElementById('addressLabel');
     text = (el.innerText || el.textContent);
     document.getElementById('addressEdit').value = text;
+}
 
+function reset(BtnID){
+    document.getElementById(BtnID).value="";
 }
