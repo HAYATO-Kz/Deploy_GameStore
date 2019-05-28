@@ -7,7 +7,12 @@ function signUp(){
 
 }
 
-function test(){
+function check(){
     var showGame = document.getElementById('showGame');
+    showGame.innerHTML = '';
     showGame.innerHTML += '<div class = "box" style="background-color: black"></div>'
+}
+
+function search(){
+    
 }
