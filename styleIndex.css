@@ -1,0 +1,24 @@
+.brandTitle{
+    color: aliceblue
+}
+.setCenter{
+    text-align: center;
+}
+.borderRight {
+    border-right: 3px solid black;
+}
+
+.rowleft {
+    padding: 5px;
+}
+
+.box{
+    height: 250px;
+    width: 338px;
+    margin: 5px;
+    
+}
+
+.setMarginAuto{
+    margin:auto ;
+}
