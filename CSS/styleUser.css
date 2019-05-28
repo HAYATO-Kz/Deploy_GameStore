@@ -1,0 +1,19 @@
+.borderRight {
+    border-right: 3px solid black;
+}
+
+.informationBlock {
+    font-size: 20px;
+}
+
+.setCenter {
+    text-align: center;
+}
+
+.setRight {
+    text-align: right;
+}
+
+.setLeft {
+    text-align: left;
+}
