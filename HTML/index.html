@@ -1,236 +1,236 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="../CSS/styleIndex.css" type="text/css"/>
+    <link rel="stylesheet" href="../CSS/styleIndex.css" type="text/css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <title>Document</title>
     <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
 </head>
-<body>
-  <!-- Nav bar -->
-    <div>
-      <nav class="navbar navbar-dark bg-dark">
-          <!-- Nav title click to home -->
-          <span class="navbar-brand brandTitle">GameStore</span>
-          <form class="form-inline">
-              <button type="button" class="btn btn-light" data-toggle="modal" data-target="#loginModal">Sign in</button>
-              <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                      <div class="modal-content">
 
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="loginModalLabel">Sign in</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<body>
+    <!-- Nav bar -->
+    <div>
+        <nav class="navbar navbar-dark bg-dark">
+            <!-- Nav title click to home -->
+            <span class="navbar-brand brandTitle">GameStore</span>
+            <form class="form-inlin">
+                <div class="btn-group" id="userDropDown">
+                    <button id="userButton" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    </button>
+                    <div class="dropdown-menu">
+                        <a onclick="chooseUser()" class="dropdown-item" href="#">Information</a>
+                        <div class="dropdown-divider"></div>
+                        <a onclick="logout()" class="dropdown-item" href="#">Logout</a>
+                    </div>
+                </div>
+                <button id="signInButton" type="button" class="btn btn-light" data-toggle="modal" data-target="#loginModal">Sign in</button>
+                <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="loginModalLabel">Sign in</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                               <span aria-hidden="true">&times;</span>
                             </button>
-                          </div>
+                            </div>
 
-                          <div class="modal-body setCenter setMarginAuto">
-                              <form class>
-                                  <div class="form-group row mb-3">
-                                    <label for="inputID" class="col-sm-2 col-form-label">ID</label>
-                                    <div class="col-sm-10">
-                                      <input type="text" class="form-control" id="inputID" placeholder="ID">
+                            <div class="modal-body setCenter setMarginAuto">
+                                <form class>
+                                    <div class="form-group row mb-3">
+                                        <label for="inputID" class="col-sm-2 col-form-label">ID</label>
+                                        <div class="col-sm-10">
+                                            <input value="new@ku.th" type="text" class="form-control" id="inputID" placeholder="ID">
+                                        </div>
                                     </div>
-                                  </div>                    
 
-                                  <div class="form-group row">
-                                    <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-                                    <div class="col-sm-10">
-                                      <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                                    <div class="form-group row">
+                                        <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+                                        <div class="col-sm-10">
+                                            <input value="123456" type="password" class="form-control" id="inputPassword" placeholder="Password">
+                                        </div>
                                     </div>
-                                  </div>     
-                              </form>
-                          </div>
+                                </form>
+                            </div>
 
-                          <div class="modal-footer">
-                              <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="getData()">Sign in</button>
-                              <button type="button" onclick="change()" id="regisBtn"class= "btn btn-danger" style="position: absolute; left: 10px;">Sign up</button>
-                          </div>
-                      </div>
-                </div>
-          </form>
-      </nav>
+                            <div class="modal-footer">
+                                <button type="button" onclick="login()" class="btn btn-primary" data-dismiss="modal">Sign in</button>
+                                <button type="button" onclick="change()" id="regisBtn" class="btn btn-danger" style="position: absolute; left: 10px;">Sign up</button>
+                            </div>
+                        </div>
+                    </div>
+            </form>
+        </nav>
 
-      <!-- Register form -->
-      <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-              <div class="modal-content">
+        <!-- Register form -->
+        <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
 
-                  <div class="modal-header">
-                      <h3 class="modal-title" id="loginModalLabel">Sign up</h3>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="loginModalLabel">Sign up</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
-                  </div>
+                    </div>
 
-                  <div class= "modal-body">
-                          <div class="row" style="padding-bottom:8px;">
+                    <div class="modal-body">
+                        <div class="row" style="padding-bottom:8px;">
                             <div class="col-md-5">
-                              <input type="text" class="form-control" placeholder="First name" id="firstNameinput" required>
+                                <input type="text" class="form-control" placeholder="First name" id="firstNameInput" required>
                             </div>
-                            <div class="col-md-5" style ="padding-inline-end: 10px; padding-inline-start: 5px">
-                              <input type="text" class="form-control" placeholder="Last name" id="lastNameInput" required>
+                            <div class="col-md-5" style="padding-inline-end: 10px; padding-inline-start: 5px">
+                                <input type="text" class="form-control" placeholder="Last name" id="lastNameInput" required>
                             </div>
-                            <div class="col-md-2" style ="padding-inline-start: 2px">
+                            <div class="col-md-2" style="padding-inline-start: 2px">
                                 <input type="number" class="form-control" placeholder="Age" id="ageInput" required>
                             </div>
-                          </div>
+                        </div>
 
-                          <div class ="row" style="padding-bottom:8px;">
-                              <div class="col">
-                                <input type="email" class="form-control" placeholder="Email" id="emailInput" required>
-                              </div>
-                          </div>
-
-                          <div class ="row" style="padding-bottom:8px;">
-                              <div class="col">
-                                <input type="text" class="form-control" placeholder="Password" id="passwordInput"required>
-                              </div>
-                          </div>
-
-                          <div class ="row">
+                        <div class="row" style="padding-bottom:8px;">
                             <div class="col">
-                              <textarea class="form-control" id="addressInput" rows="3" placeholder="Address" id="addressInput"></textarea>
+                                <input type="email" class="form-control" placeholder="Email" id="emailInput" required>
                             </div>
-                          </div>
-
-                          <br>
-                          <div class="row">
-                            <div class = "col">
-                                <button class ="btn btn-primary btn-lg btn-block" onclick="signUp()">Sign UP</button>
-                            </div>
-                          </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-    </div>
-
-    
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-3 borderRight">
-                <!-- search button div -->
-                <div class="row rowleft">
-                    <div class="input-group input-group-lg">
-                        <input type="text" class="form-control" placeholder="Game title" aria-label="input's title" id="searchInput">
-                        <div class="input-group-append">
-                          <button class="btn btn-primary" type="button" id="button-addon2" onclick="search()">Search</button>
                         </div>
-                      </div>
-                </div>
 
-                <!-- choose category -->
-                <div class = "row rowleft">
-                      <button class="btn btn-primary btn-block btn-lg" data-toggle="collapse" href="#selectCategory">
-                        Category
-                      </button>
-                    <div class="collapse" id="selectCategory">
-                      <div class="card card-body">
-                          <div>
-                              <div class="row container-fluid">
-                                  <div class="col-md-auto">
-                                      <input class="form-check-input" type="checkbox" id="ActionCheckbox" value="option1" onclick="check()">
-                                      <label class="form-check-label" for="ActionCheckbox">Action</label>
-                                  </div>
-                                  <div class="col-md-auto">
-                                      <input class="form-check-input" type="checkbox" id="AdventureCheckbox" value="option1" onclick="check()">
-                                      <label class="form-check-label" for="AdventureCheckbox">Adventure</label>
-                                  </div>
-                                  <div class="col-md-auto">
-                                      <input class="form-check-input" type="checkbox" id="HorrorCheckbox" value="option1" onclick="check()">
-                                      <label class="form-check-label" for="HorrorCheckbox">Horror</label>
-                                  </div>
-                                  <div class="col-md-auto">
-                                      <input class="form-check-input" type="checkbox" id="ScifiCheckbox" value="option1" onclick="check()">
-                                      <label class="form-check-label" for="ScifiCheckbox">Scifi</label>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
+                        <div class="row" style="padding-bottom:8px;">
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Password" id="passwordInput" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <textarea class="form-control" id="addressInput" rows="3" placeholder="Address" id="addressInput"></textarea>
+                            </div>
+                        </div>
+
+                        <br>
+                        <div class="row">
+                            <div class="col">
+                                <button class="btn btn-primary btn-lg btn-block" onclick="signUp()">Sign UP</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-                <!-- choose playstyle -->
-                <div class = "row rowleft">
-                    <button class="btn btn-primary btn-block btn-lg" data-toggle="collapse" href="#selectPlayStyle">
-                      Playstyle
-                    </button>
-                  <div class="collapse" id="selectPlayStyle">
-                    <div class="card card-body">
-                        <div>
-                            <div class="row container-fluid">
-                                <div class="col-md-auto">
-                                    <input class="form-check-input" type="checkbox" id="MultiplayerCheckbox" value="option1" onclick="check()">
-                                    <label class="form-check-label" for="MultiplayerCheckbox">Multiplayer</label>
-                                </div>
-                                <div class="col-md-auto">
-                                    <input class="form-check-input" type="checkbox" id="SinglePlayerCheckbox" value="option1" onclick="check()">
-                                    <label class="form-check-label" for="SinglePlayerCheckbox">Single player</label>
-                                </div>
-                                <div class="col-md-auto">
-                                    <input class="form-check-input" type="checkbox" id="Coopcheckbox" value="option1" onclick="check()">
-                                    <label class="form-check-label" for="CoopCheckbox">Co-op</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                  </div>
-              </div>
-
-                <!-- choose language -->
-                <div class = "row rowleft">
-                    <button class="btn btn-primary btn-block btn-lg" data-toggle="collapse" href="#selectLanguage">
-                      Language
-                    </button>
-                  <div class="collapse" id="selectLanguage">
-                    <div class="card card-body">
-                        <div>
-                            <div class="row container-fluid">
-                                <div class="col-md-auto">
-                                    <input class="form-check-input" type="checkbox" id="EnglishCheckbox" value="option1">
-                                    <label class="form-check-label" for="EnglishCheckbox">English</label>
-                                </div>
-                                <div class="col-md-auto">
-                                    <input class="form-check-input" type="checkbox" id="ChineseCheckbox" value="option1">
-                                    <label class="form-check-label" for="ChineseCheckbox">Chinese</label>
-                                </div>
-                                <div class="col-md-auto">
-                                    <input class="form-check-input" type="checkbox" id="JapaneseCheckbox" value="option1">
-                                    <label class="form-check-label" for="JapaneseCheckbox">Japanese</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                  </div>
-              </div>
-            </div>
-
-            <div class="col-sm-9" style="background-color: bisque;">
-              <div class = "row container" style=" padding:0px;margin: 0px;" id="showGame">
-                    <div class = "box" style="background-color: black">
-                    </div>
-                    <div class = "box" style="background-color: red">
-                    </div>
-                    <div class = "box" style="background-color: blue">
-                    </div>
-                    <div class = "box" style="background-color: black">
-                    </div>
-                    <div class = "box" style="background-color: red">
-                    </div>
-                    <div class = "box" style="background-color: blue">
-                    </div>
-              </div>
             </div>
         </div>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <script src="../JScript/index.js"></script>
+        </div>
+
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-3 borderRight">
+                    <!-- search button div -->
+                    <div class="row rowleft">
+                        <div class="input-group input-group-lg">
+                            <input type="text" class="form-control" placeholder="Game title" aria-label="Recipient's username" aria-describedby="button-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button" id="button-addon2" onclick="search()">Search</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- choose category -->
+                    <div class="row rowleft">
+                        <button class="btn btn-primary btn-block btn-lg" data-toggle="collapse" href="#selectCategory">
+                        Category
+                      </button>
+                        <div class="collapse" id="selectCategory">
+                            <div class="card card-body">
+                                <div>
+                                    <div class="row container-fluid">
+                                        <div class="col-md-auto">
+                                            <input class="form-check-input" type="checkbox" id="ActionCheckbox" value="option1" onclick="check()">
+                                            <label class="form-check-label" for="ActionCheckbox">Action</label>
+                                        </div>
+                                        <div class="col-md-auto">
+                                            <input class="form-check-input" type="checkbox" id="AdventureCheckbox" value="option1" onclick="check()">
+                                            <label class="form-check-label" for="AdventureCheckbox">Adventure</label>
+                                        </div>
+                                        <div class="col-md-auto">
+                                            <input class="form-check-input" type="checkbox" id="HorrorCheckbox" value="option1" onclick="check()">
+                                            <label class="form-check-label" for="HorrorCheckbox">Horror</label>
+                                        </div>
+                                        <div class="col-md-auto">
+                                            <input class="form-check-input" type="checkbox" id="ScifiCheckbox" value="option1" onclick="check()">
+                                            <label class="form-check-label" for="ScifiCheckbox">Scifi</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- choose playstyle -->
+                    <div class="row rowleft">
+                        <button class="btn btn-primary btn-block btn-lg" data-toggle="collapse" href="#selectPlayStyle">
+                      Playstyle
+                    </button>
+                        <div class="collapse" id="selectPlayStyle">
+                            <div class="card card-body">
+                                <div>
+                                    <div class="row container-fluid">
+                                        <div class="col-md-auto">
+                                            <input class="form-check-input" type="checkbox" id="MultiplayerCheckbox" value="option1" onclick="check()">
+                                            <label class="form-check-label" for="MultiplayerCheckbox">Multiplayer</label>
+                                        </div>
+                                        <div class="col-md-auto">
+                                            <input class="form-check-input" type="checkbox" id="SinglePlayerCheckbox" value="option1" onclick="check()">
+                                            <label class="form-check-label" for="SinglePlayerCheckbox">Single player</label>
+                                        </div>
+                                        <div class="col-md-auto">
+                                            <input class="form-check-input" type="checkbox" id="Coopcheckbox" value="option1" onclick="check()">
+                                            <label class="form-check-label" for="CoopCheckbox">Co-op</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- choose language -->
+                    <div class="row rowleft">
+                        <button class="btn btn-primary btn-block btn-lg" data-toggle="collapse" href="#selectLanguage">
+                      Language
+                    </button>
+                        <div class="collapse" id="selectLanguage">
+                            <div class="card card-body">
+                                <div>
+                                    <div class="row container-fluid">
+                                        <div class="col-md-auto">
+                                            <input class="form-check-input" type="checkbox" id="EnglishCheckbox" value="option1">
+                                            <label class="form-check-label" for="EnglishCheckbox">English</label>
+                                        </div>
+                                        <div class="col-md-auto">
+                                            <input class="form-check-input" type="checkbox" id="ChineseCheckbox" value="option1">
+                                            <label class="form-check-label" for="ChineseCheckbox">Chinese</label>
+                                        </div>
+                                        <div class="col-md-auto">
+                                            <input class="form-check-input" type="checkbox" id="JapaneseCheckbox" value="option1">
+                                            <label class="form-check-label" for="JapaneseCheckbox">Japanese</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-9" style="background-color: bisque;">
+                    <div class="row container" style=" padding:0px;margin: 0px;" id="showGame">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <script src="../JScript/index.js"></script>
 </body>
+
 </html>

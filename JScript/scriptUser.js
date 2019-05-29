@@ -1,18 +1,25 @@
 $(document).ready(function(){
     var queryString = decodeURIComponent(window.location.search);
-    var id = (queryString.split('='))[1];
-  
-    fetch(`http://localhost:3000/products/findByProductId/${id}`)
-    .then(function(response) {
-      return response.json();
-    })
-    .then(function(data) {
-        document.getElementById('nameLabel').innerHTML = `${data.firstName} ${data.lastName}`;
-        document.getElementById('ageLabel').innerHTML = data.age;
-        document.getElementById('emailLabel').innerHTML = data.email;
-        document.getElementById('addressLabel').innerHTML = data.address;
-        document.getElementById('pointLabel').innerHTML = data.pointer;
-    })
+    var text = (queryString.split('?'))[1];
+    var token = (text.split('@'))[1];
+    var id = (((text.split('@'))[0]).split('='))[1];
+
+        // Get User Json
+        $.ajax({
+            url: "http://localhost:3000/users/" + id,
+            type: 'GET',
+            beforeSend: function(req) {
+                req.setRequestHeader('Authorization', 'Bearer ' + token);
+            },
+            success: function(data) {
+                data = data.user[0];
+                document.getElementById('nameLabel').innerHTML = `${data.name.first_name} ${data.name.last_name}`;
+                document.getElementById('ageLabel').innerHTML = data.age;
+                document.getElementById('emailLabel').innerHTML = data.email;
+                document.getElementById('addressLabel').innerHTML = data.address;
+                document.getElementById('pointLabel').innerHTML = data.point;
+            }
+        })
 });
 
 function initialData(){
