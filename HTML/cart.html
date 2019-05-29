@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../CSS/styleCart.css" type="text/css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+    
+    <!-- Nav Bar -->
+    <div>
+        <nav class="navbar navbar-dark bg-dark">
+            <!-- Nav title click to home -->
+            <a href="index.html">
+                <span class="navbar-brand brandTitle">GameStore</span>
+            </a>
+        </nav>
+    </div>
+
+    <div class="container-fluid" style="padding: 0px">
+        <!-- Table of game in cart -->
+        <table class="table table-hover" id="cartTable">
+            <thead class="thead-dark">
+                <tr class="d-flex">
+                    <th class="col-md-4">Title</th>
+                    <th class="col-md-3">Quantity</th>
+                    <th class="col-md-3">Total price</th>
+                    <th class="col-md-2"></th>
+                </tr>
+            </thead>
+            <tbody id="cartBody">
+                <tr class="d-flex">
+                    <td class="col-md-4">Mark</td>
+                    <td class="col-md-3">Otto</td>
+                    <td class="col-md-3">@mdo</td>
+                    <td class="col-md-2">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <button type="button" class="btn btn-secondary btn-block dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    EDIT
+                                </button>
+                                <div class="dropdown-menu">
+                                    <div class="form-group container">
+                                        <label for="newQuantityInput">New Quantity</label>
+                                        <input type="number" id="newQuantityInput" class="form-control mb-3">
+                                        <button class="btn btn-secondary btn-block">EDIT</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="close" aria-label="Close" onclick="deleteRow(this)">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="d-flex">
+                        <td class="col-md-4">Mark</td>
+                        <td class="col-md-3">Otto</td>
+                        <td class="col-md-3">@mdo</td>
+                        <td class="col-md-2">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <button type="button" class="btn btn-secondary btn-block dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        EDIT
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <div class="form-group container">
+                                            <label for="newQuantityInput">New Quantity</label>
+                                            <input type="number" id="newQuantityInput" class="form-control mb-3">
+                                            <button class="btn btn-secondary btn-block">EDIT</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="button" class="close" aria-label="Close" onclick="deleteRow(this)">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+        
+        <!-- Buy button -->
+        <div class ="container-fluid"style="text-align: center">
+            <button class="btn btn-primary btn-lg" style="width: 200px" data-toggle="collapse" data-target="#addressChoose">BUY</button>
+        </div>
+        <div class="collapse" id="addressChoose">
+            <div class="card card-body">
+
+                <!-- form check for use user address -->
+                <div class="form-check">
+                    <input class="form-check-input position-static mb-3" type="radio" name="addressOptions" id="oldRadio" value="option1" onclick="useOld()" checked>
+                    <label for="oldRadio">Use user address</label>
+                </div>
+
+                <!-- form check for use new address -->
+                <div class="form-check">
+                    <input class="form-check-input position-static" type="radio" name="addressOptions" id="newRadio" value="option2" onclick="useNew()" >
+                    <label for="newRadio">Use new address</label>
+                </div>
+                <div>
+                    <textarea name="address" id="inputNewAddress" cols="30" rows="4" placeholder="new address" disabled></textarea>
+                </div>
+                <div style="text-align:center">
+                    <button class="btn btn-primary btn-lg" style="width: 200px" data-toggle="collapse" data-target="#paymentChoose">Next</button>
+                </div>
+            </div>
+        </div>
+        <div class="collapse" id="paymentChoose">
+                <div class="card card-body">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="paymentOptions" id="debitRadio" value="option1">
+                        <label class="form-check-label" for="debitRadio">Debit/Credit</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="paymentOptions" id="transferRadio" value="option2">
+                        <label class="form-check-label" for="transferRadio">Transfer</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="paymentOptions" id="trueRadio" value="option2">
+                        <label class="form-check-label" for="trueRadio">True Money</label>
+                    </div>
+                    <div style="text-align:center">
+                        <button class="btn btn-primary btn-lg" style="width: 200px" onclick="endBuyProcess()">Finish</button>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    <script src="../JScript/scriptCart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
+        crossorigin="anonymous"></script>
+</body>
+</html>
