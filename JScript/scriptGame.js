@@ -7,7 +7,6 @@ $(document).ready(function(){
     return response.json();
   })
   .then(function(data) {
-    let authors = data.results; // Get the results
     var game = data.product[0];
     document.getElementById('gamePrice').innerHTML = game.price +" baht";
     document.getElementById('gamePicture').src = `http://localhost:3000/${game.productImage}`
