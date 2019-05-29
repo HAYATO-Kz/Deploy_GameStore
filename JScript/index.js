@@ -1,3 +1,5 @@
+var product;
+
 $(document).ready(function () {
     var showGame = document.getElementById('showGame');
     showGame.innerHTML = '';
@@ -7,9 +9,9 @@ $(document).ready(function () {
       })
     .then(function(data) {
         let authors = data.results; // Get the results
-        console.log(data.products);
-        for(var x in data.products){
-            var game = data.products[x];
+        product = data.products;
+        for(var x in product){
+            var game = product[x];
             console.log(typeof game._id);
             showGame.innerHTML += `<div class="card" style="width: 325px;margin:10px;" onclick="chooseGame('${game._id}')">
                                         <img class="card-img-top" src="http://localhost:3000/${game.productImage}" alt="Card image cap">
@@ -35,25 +37,15 @@ function signUp(){
 
 }
 
-function goto() { 
-    window.location.replace("HelloWorld");
- }
-
-function check(){
-    var showGame = document.getElementById('showGame');
-    showGame.innerHTML = '';
-    showGame.innerHTML += '<div class = "box" style="background-color: black"></div>'
-}
-
 function search(){
-    
-}
+    var title = document.getElementById('searchTitle').value;
 
-function f1(){
-    console.log("f1")
-}
-
-function f2(){
-    console.log("f2")
+    fetch(`http://localhost:3000/products/findByName/${title}`)
+    .then(function(response){
+        return response.json();
+    })
+    .then(function(data){
+        chooseGame(data._id);
+    })
 }
 
