@@ -1,3 +1,10 @@
+var user
+
+$(document).ready(function() {
+    document.getElementById('signOutButton').style.display = "none"
+    document.getElementById('userName').style.display = "none"
+});
+
 function change() {
     $("#loginModal").modal('hide');
     $("#registerModal").modal('show');
@@ -22,7 +29,7 @@ function signUp() {
         "address": address
     };
 
-    var url = 'http://localhost:3000/user/signup';
+    var url = 'http://localhost:3000/users/signup';
 
     $.ajax({
         dataType: 'json',
@@ -50,22 +57,40 @@ function login() {
     var email = $('#inputID').val();
     var password = $('#inputPassword').val();
 
-    var url = 'http://localhost:3000/user/login';
+    var url = 'http://localhost:3000/users/login';
 
     var data = {
         "email": email,
         "password": password
     };
 
+    var x = ajax(url, data);
+    console.log(x);
+    $("#loginModal").modal('hide');
+    document.getElementById('signInButton').style.display = "none"
+    document.getElementById('signOutButton').style.display = "block"
+    document.getElementById('userName').style.display = "block"
+}
+
+function getUser(json) {
+    user = json;
+    //console.log(user);
+}
+
+function ajax(url, data) {
     $.ajax({
         dataType: 'json',
         url: url,
         type: 'POST',
         data: JSON.stringify(data),
-        contentType: 'application/json'
-    });
-
-    $("#loginModal").modal('hide');
-
-
+        contentType: 'application/json',
+        success: function(res) {
+            var base64Url = res.token.split('.')[1];
+            var base64 = decodeURIComponent(atob(base64Url).split('').map(function(c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+            return JSON.parse(base64);
+            //console.log(user);
+        }
+    })
 }

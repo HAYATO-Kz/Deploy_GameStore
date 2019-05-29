@@ -17,8 +17,12 @@
         <nav class="navbar navbar-dark bg-dark">
             <!-- Nav title click to home -->
             <span class="navbar-brand brandTitle">GameStore</span>
-            <form class="form-inline">
-                <button type="button" class="btn btn-light" data-toggle="modal" data-target="#loginModal">Sign in</button>
+            <form class="form-inlin">
+                <div id="userName">
+                    <strong>User</strong>
+                </div>
+                <button id="signOutButton" type="button" class="btn btn-light" data-toggle="modal">Logout</button>
+                <button id="signInButton" type="button" class="btn btn-light" data-toggle="modal" data-target="#loginModal">Sign in</button>
                 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
