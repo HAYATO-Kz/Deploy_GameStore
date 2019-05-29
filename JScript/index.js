@@ -1,14 +1,21 @@
 var user
+var token
+var userID
+
 
 $(document).ready(function() {
-    document.getElementById('signOutButton').style.display = "none"
-    document.getElementById('userName').style.display = "none"
+    document.getElementById('userDropDown').style.display = "none"
 });
 
 function change() {
     $("#loginModal").modal('hide');
     $("#registerModal").modal('show');
 }
+
+function chooseUser() {
+    window.location.href = "user.html" + "?id=" + userID;
+}
+
 
 function signUp() {
     var firstName = $('#firstNameInput').val();
@@ -64,33 +71,56 @@ function login() {
         "password": password
     };
 
-    var x = ajax(url, data);
-    console.log(x);
-    $("#loginModal").modal('hide');
-    document.getElementById('signInButton').style.display = "none"
-    document.getElementById('signOutButton').style.display = "block"
-    document.getElementById('userName').style.display = "block"
-}
-
-function getUser(json) {
-    user = json;
-    //console.log(user);
-}
-
-function ajax(url, data) {
     $.ajax({
         dataType: 'json',
         url: url,
         type: 'POST',
         data: JSON.stringify(data),
         contentType: 'application/json',
+        async: !1,
         success: function(res) {
-            var base64Url = res.token.split('.')[1];
+            token = res.token;
+            var base64Url = token.split('.')[1];
             var base64 = decodeURIComponent(atob(base64Url).split('').map(function(c) {
                 return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
             }).join(''));
-            return JSON.parse(base64);
-            //console.log(user);
+            updateUser(JSON.parse(base64));
         }
     })
+    userID = user.userId;
+
+    // Change sign in to user butoon
+    $("#loginModal").modal('hide');
+    document.getElementById('signInButton').style.display = "none"
+    document.getElementById('userDropDown').style.display = "block"
+
+    // Get User Json
+    $.ajax({
+        url: "http://localhost:3000/users/" + userID,
+        type: 'GET',
+        beforeSend: function(req) {
+            req.setRequestHeader('Authorization', 'Bearer ' + token);
+        },
+        success: function(res) {
+            document.getElementById('userButton').innerHTML = res.user[0].name.first_name;
+        }
+    })
+
+
+}
+
+function information() {
+
+}
+
+function logout() {
+    user = null;
+    token = null;
+    document.getElementById('signInButton').style.display = "block"
+    document.getElementById('userDropDown').style.display = "none"
+}
+
+
+function updateUser(json) {
+    user = json;
 }
