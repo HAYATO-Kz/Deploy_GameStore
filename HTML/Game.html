@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../CSS/styleGame.css" type="text/css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body id="main">
+    <!-- Nav Bar -->
+    <div id="navBar">
+        <nav class="navbar navbar-dark bg-dark">
+            <!-- Nav title click to home -->
+            <a href="index.html">
+                <span class="navbar-brand brandTitle">GameStore</span>
+            </a>
+        </nav>
+     </div>
+
+    <!-- Hide window [some game descript] -->
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class="container">
+            <div class="row">
+                 <!-- Release date row -->
+                <div class="col text-white mb-3">Release Date:</div>
+                <div class="col text-white mb-3" id="releaseDate">9 Aug, 2018</div>
+                <div class="w-100 mb-3" style="border-bottom: 2px solid white"></div>
+
+                <!-- developer name row -->
+                <div class="col text-white mb-3">Developer:</div>
+                <div class="col text-white mb-3" id="developer">CAPCOM Co., Ltd.</div>
+                <div class="w-100 mb-3" style="border-bottom: 2px solid white"></div>
+
+                <!-- publisher name row -->
+                <div class="col text-white mb-3">Publisher:</div>
+                <div class="col text-white mb-3" id="publisher">CAPCOM Co., Ltd.</div>
+                <div class="w-100 mb-3" style="border-bottom: 2px solid white"></div>
+
+                <!-- category row -->
+                <div class="col text-white mb-3">Category:</div>
+                <div class="col text-white mb-3" id="category">Action</div>
+                <div class="w-100 mb-3" style="border-bottom: 2px solid white"></div>
+
+                <!-- playstyle row -->
+                <div class="col text-white mb-3">Type of Playing:</div>
+                <div class="col text-white mb-3" id="tOPlaying">Single, Multiplayer, Co-op</div>
+                <div class="w-100 mb-3" style="border-bottom: 2px solid white"></div>
+
+                <!-- language row -->
+                <div class="col text-white mb-3">Language:</div>
+                <div class="col text-white mb-3" id="tOPlaying">English, Japanese, French, German</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main window -->
+    <div>
+        <div class="imagewrap mb-3">
+            <img src="picture.png" class="main" alt="example of game" width="1440px" height="500px" id="gamePicture">
+            <div class="tagPriceAndBuy">
+                <div class="alert alert-success text-center" role="alert" style="margin-bottom: 0">
+                    1440 Baht
+                </div>
+                <button class="btn btn-success btn-lg btn-block" id="buyButton"> BUY </button>
+                <button class="openbtn btn-block btn-lg" onclick="openNav()" style="margin: 0">&#9776; Game detail</button> 
+            </div>
+        </div>
+        
+        <!-- -->
+        <div class="container-fluid">
+            <!-- title row -->
+            <div class ="row">
+                        <div class = "col-md-2 text-right titleBlock" >
+                            Title
+                        </div>
+                        <div class = "col-md-10 titleBlock">
+                            <div class ="row">
+                                <div class= "col-md-5 text-left" id="gameTitle">
+                                    Monster Hunter world
+                                </div>
+                                <div class="col-md-7 rounded text-center">
+                                    <div class="alert alert-secondary" style="width: 200px; font-size:20px">
+                                        In Stock <span class="badge badge-light" id="stockQuantity">9</span>
+                                    <span class="sr-only">unread messages</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            </div>
+
+            <!-- description row -->
+            <div class ="row mb-3">
+                <div class = "col-md-2 text-right titleBlock" >
+                    Description
+                </div>
+                <div class = "col-md-10 titleBlock" id="gameDescription">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et 
+                            dictum interdum, nisi lorem egestas vitae scel<span id="more">erisque enim 
+                            ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa. Fusce luctus vestibulum 
+                            augue ut aliquet. Nunc sagittis dictum nisi, sed ullamcorper ipsum dignissim ac. In at libero sed nunc venenatis imperdiet 
+                            sed ornare turpis. Donec vitae dui eget tellus gravida venenatis. Integer fringilla congue eros non fermentum. Sed dapibus 
+                            pulvinar nibh tempor porta.</span>
+                            <a href="#" onclick="show()" id="dots">...</a>
+                        </p>
+                </div>
+            </div>
+
+            <!-- dlc and aceivement button -->
+            <div class="container-fluid mb-3">
+                <div class ="row">
+                    <div class="col-md-6 text-center">
+                        <button class="btn btn-secondary btn-lg btn-block" onclick="showDLC()">
+                            DLC
+                        </button>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <button class="btn btn-secondary btn-lg btn-block" onclick="showAchievement()">
+                            Achievement
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="collapse" id="dlcCollapse">
+                <div class="card card-body">
+                    <table class="table table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col">Title</th>
+                                <th scope="col">Price</th>
+                            </tr>
+                        </thead>
+                        <tbody id="gameDLC">
+                            <tr>
+                                <td>Partner clother</td>
+                                <td>250</td>
+                            </tr>
+                            <tr>
+                                <td>Monster hunter wordl: Iceborn</td>
+                                <td>1440</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="collapse" id="achievementCollapse">
+                <div class="card card-body">
+                    <table class="table table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col">Title</th>
+                                <th scope="col">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody id="gameAchievement">
+                            <tr>
+                                <td>LOL</td>
+                                <td>China number one</td>
+                            </tr>
+                            <tr>
+                                <td>GOD</td>
+                                <td>kill monster without weapon</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <script src="../JScript/scriptGame.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+</body>
+</html>
