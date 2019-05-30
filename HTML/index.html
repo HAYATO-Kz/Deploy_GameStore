@@ -110,6 +110,7 @@
                                     <textarea class="form-control" id="addressInput" rows="3" placeholder="Address" id="addressInput"></textarea>
                                 </div>
                             </div>
+
                             <br>
                             <div class="row">
                                 <div class="col">
@@ -154,12 +155,36 @@
                                             <label class="form-check-label" for="adventureCheckbox">Adventure</label>
                                         </div>
                                         <div class="col-md-auto">
-                                            <input class="form-check-input" type="checkbox" id="horrorCheckbox" value="Horror" onclick="categoryWfilter(this)">
-                                            <label class="form-check-label" for="horrorCheckbox">Horror</label>
+                                            <input class="form-check-input" type="checkbox" id="casualCheckbox" value="Casual" onclick="categoryWfilter(this)">
+                                            <label class="form-check-label" for="CasualCheckbox">Casual</label>
                                         </div>
                                         <div class="col-md-auto">
-                                            <input class="form-check-input" type="checkbox" id="scifiCheckbox" value="Scifi" onclick="categoryWfilter(this)">
-                                            <label class="form-check-label" for="scifiCheckbox">Scifi</label>
+                                            <input class="form-check-input" type="checkbox" id="indieCheckbox" value="Indie" onclick="categoryWfilter(this)">
+                                            <label class="form-check-label" for="indieCheckbox">Indie</label>
+                                        </div>
+                                        <div class="col-md-auto">
+                                            <input class="form-check-input" type="checkbox" id="simulationCheckbox" value="Simulation" onclick="categoryWfilter(this)">
+                                            <label class="form-check-label" for="simulationCheckbox">Simulation</label>
+                                        </div>
+                                        <div class="col-md-auto">
+                                            <input class="form-check-input" type="checkbox" id="rpgCheckbox" value="RPG" onclick="categoryWfilter(this)">
+                                            <label class="form-check-label" for="rpgCheckbox">RPG</label>
+                                        </div>
+                                        <div class="col-md-auto">
+                                            <input class="form-check-input" type="checkbox" id="racingCheckbox" value="Racing" onclick="categoryWfilter(this)">
+                                            <label class="form-check-label" for="racingCheckbox">Racing</label>
+                                        </div>
+                                        <div class="col-md-auto">
+                                            <input class="form-check-input" type="checkbox" id="sportsCheckbox" value="Sports" onclick="categoryWfilter(this)">
+                                            <label class="form-check-label" for="sportsCheckbox">Sports</label>
+                                        </div>
+                                        <div class="col-md-auto">
+                                            <input class="form-check-input" type="checkbox" id="massivelyMultiplayerCheckbox" value="Massively-Multiplayer" onclick="categoryWfilter(this)">
+                                            <label class="form-check-label" for="massivelyMultiplayerCheckbox">Massively-Multiplayer</label>
+                                        </div>
+                                        <div class="col-md-auto">
+                                            <input class="form-check-input" type="checkbox" id="strategyCheckbox" value="Strategy" onclick="categoryWfilter(this)">
+                                            <label class="form-check-label" for="strategyCheckbox">Strategy</label>
                                         </div>
                                     </div>
                                 </div>
@@ -177,12 +202,12 @@
                                 <div>
                                     <div class="row container-fluid">
                                         <div class="col-md-auto">
-                                            <input class="form-check-input" type="checkbox" id="multiplayerCheckbox" value="Multiplayer" onclick="playstyleWfilter(this)">
-                                            <label class="form-check-label" for="multiplayerCheckbox">Multiplayer</label>
+                                            <input class="form-check-input" type="checkbox" id="multiplayerCheckbox" value="Multi-Player" onclick="playstyleWfilter(this)">
+                                            <label class="form-check-label" for="multiplayerCheckbox">Multi-Player</label>
                                         </div>
                                         <div class="col-md-auto">
-                                            <input class="form-check-input" type="checkbox" id="singlePlayerCheckbox" value="Single Player" onclick="playstyleWfilter(this)">
-                                            <label class="form-check-label" for="singlePlayerCheckbox">Single player</label>
+                                            <input class="form-check-input" type="checkbox" id="singlePlayerCheckbox" value="Single-Player" onclick="playstyleWfilter(this)">
+                                            <label class="form-check-label" for="singlePlayerCheckbox">Single-Player</label>
                                         </div>
                                         <div class="col-md-auto">
                                             <input class="form-check-input" type="checkbox" id="coopcheckbox" value="Co-op" onclick="playstyleWfilter(this)">
@@ -214,6 +239,42 @@
                                         <div class="col-md-auto">
                                             <input class="form-check-input" type="checkbox" id="japaneseCheckbox" value="Japanese" onclick="languageWfilter(this)">
                                             <label class="form-check-label" for="japaneseCheckbox">Japanese</label>
+                                        </div>
+                                        <div class="col-md-auto">
+                                            <input class="form-check-input" type="checkbox" id="frenchCheckbox" value="French" onclick="languageWfilter(this)">
+                                            <label class="form-check-label" for="frenchCheckbox">French</label>
+                                        </div>
+                                        <div class="col-md-auto">
+                                            <input class="form-check-input" type="checkbox" id="italianCheckbox" value="Italian" onclick="languageWfilter(this)">
+                                            <label class="form-check-label" for="italianCheckbox">Italian</label>
+                                        </div>
+                                        <div class="col-md-auto">
+                                            <input class="form-check-input" type="checkbox" id="germanCheckbox" value="German" onclick="languageWfilter(this)">
+                                            <label class="form-check-label" for="germanCheckbox">German</label>
+                                        </div>
+                                        <div class="col-md-auto">
+                                            <input class="form-check-input" type="checkbox" id="spanishCheckbox" value="Spanish" onclick="languageWfilter(this)">
+                                            <label class="form-check-label" for="spanishCheckbox">Spanish</label>
+                                        </div>
+                                        <div class="col-md-auto">
+                                            <input class="form-check-input" type="checkbox" id="koreanCheckbox" value="Korean" onclick="languageWfilter(this)">
+                                            <label class="form-check-label" for="koreanCheckbox">Korean</label>
+                                        </div>
+                                        <div class="col-md-auto">
+                                            <input class="form-check-input" type="checkbox" id="polishCheckbox" value="Polish" onclick="languageWfilter(this)">
+                                            <label class="form-check-label" for="polishCheckbox">Polish</label>
+                                        </div>
+                                        <div class="col-md-auto">
+                                            <input class="form-check-input" type="checkbox" id="thaiCheckbox" value="Thai" onclick="languageWfilter(this)">
+                                            <label class="form-check-label" for="thaiCheckbox">Thai</label>
+                                        </div>
+                                        <div class="col-md-auto">
+                                            <input class="form-check-input" type="checkbox" id="cZechCheckbox" value="Czech" onclick="languageWfilter(this)">
+                                            <label class="form-check-label" for="cZechCheckbox">Czech</label>
+                                        </div>
+                                        <div class="col-md-auto">
+                                            <input class="form-check-input" type="checkbox" id="russianCheckbox" value="Russian" onclick="languageWfilter(this)">
+                                            <label class="form-check-label" for="russianCheckbox">Russian</label>
                                         </div>
                                     </div>
                                 </div>
