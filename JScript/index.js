@@ -69,7 +69,7 @@ function signUp() {
     var password = $('#passwordInput').val();
     var address = $('#addressInput').val();
 
-    if(firstName!==""&&lastName!==""&&age!==""&&email!==""&&password!==""){
+    if (firstName !== "" && lastName !== "" && age !== "" && email !== "" && password !== "") {
         $("#registerModal").modal('hide');
         $("#loginModal").modal('show');
         document.getElementById('inputID').value = email;
@@ -85,9 +85,9 @@ function signUp() {
             "password": password,
             "address": address
         };
-    
+
         var url = 'http://localhost:3000/users/signup';
-    
+
         $.ajax({
             dataType: 'json',
             url: url,
@@ -102,7 +102,7 @@ function login() {
     var email = $('#inputID').val();
     var password = $('#inputPassword').val();
     console.log(email);
-    if(email===""||password===""){
+    if (email === "" || password === "") {
         alert("Please fill all field");
         return 0;
     }
