@@ -16,137 +16,238 @@
         <nav class="navbar navbar-dark bg-dark">
             <!-- Nav title click to home -->
             <span class="navbar-brand brandTitle" onclick="backToIndex()">GameStore</span>
+            <form class="form-inlin">
+                <div class="btn-group dropleft" id="userDropDown">
+                    <button id="userButton" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    </button>
+                    <div class="dropdown-menu">
+                        <a onclick="chooseCart()" class="dropdown-item" href="#">Cart</a>
+                        <div class="dropdown-divider"></div>
+                        <a onclick="logout()" class="dropdown-item" href="#">Logout</a>
+                    </div>
+                </div>
+                <button id="signInButton" type="button" class="btn btn-light" data-toggle="modal" data-target="#loginModal">Sign in</button>
+                <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="loginModalLabel">Sign in</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+
+                            <div class="modal-body setCenter setMarginAuto">
+                                <form class>
+                                    <div class="form-group row mb-3">
+                                        <label for="inputID" class="col-sm-2 col-form-label">Email</label>
+                                        <div class="col-sm-10">
+                                            <input value="new@ku.th" type="text" class="form-control" id="inputID" placeholder="Email" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+                                        <div class="col-sm-10">
+                                            <input value="123456" type="password" class="form-control" id="inputPassword" placeholder="Password" required>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" onclick="login()" class="btn btn-primary">Sign in</button>
+                                <button type="button" onclick="change()" id="regisBtn" class="btn btn-danger" style="position: absolute; left: 10px;">Sign up</button>
+                            </div>
+                        </div>
+                    </div>
+            </form>
         </nav>
-    </div>
 
-    <div class="row">
-        <!-- user information -->
-        <div class="col-md-6 borderRight">
-            <h1 class="container" style="margin-top:5px">INFORMATION</h1>
-            <div class="container-fluid border border-secondary mb-3" style="margin: 5px;padding: 15px;">
-                <div class="row">
-                    <div class="col-md-4 text-right informationBlock">
-                        Name
-                    </div>
-                    <div class="col-md-8 texr-left informationBlock" id="nameLabel">
-                        FirstName LastName
-                    </div>
-                </div>
+        <!-- Register form -->
+        <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
 
-                <div class="row">
-                    <div class="col-md-4 text-right informationBlock">
-                        Age
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="loginModalLabel">Sign up</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
                     </div>
-                    <div class="col-md-8 text-left informationBlock" id="ageLabel">
-                        20
-                    </div>
-                </div>
 
-                <div class="row">
-                    <div class="col-md-4 text-right informationBlock">
-                        Email
-                    </div>
-                    <div class="col-md-8 text-left informationBlock" id="emailLabel">
-                        example@hotmail.com
-                    </div>
-                </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="row" style="padding-bottom:8px;">
+                                <div class="col-md-5">
+                                    <input type="text" class="form-control" placeholder="First name" id="firstNameInput" required>
+                                </div>
+                                <div class="col-md-5" style="padding-inline-end: 10px; padding-inline-start: 5px">
+                                    <input type="text" class="form-control" placeholder="Last name" id="lastNameInput" required>
+                                </div>
+                                <div class="col-md-2" style="padding-inline-start: 2px">
+                                    <input type="number" class="form-control" placeholder="Age" id="ageInput" required>
+                                </div>
+                            </div>
 
-                <div class="row">
-                    <div class="col-md-4 text-right informationBlock">
-                        Address
-                    </div>
-                    <div class="col-md-8 text-left informationBlock" id="addressLabel">
-                        example for address naaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                    </div>
-                </div>
+                            <div class="row" style="padding-bottom:8px;">
+                                <div class="col">
+                                    <input type="email" class="form-control" placeholder="Email" id="emailInput" required>
+                                </div>
+                            </div>
 
-                <div class="row">
-                    <div class="col-md-4 text-right informationBlock">
-                        Point
-                    </div>
-                    <div class="col-md-8 text-left informationBlock" id="pointLabel">
-                        2700
+                            <div class="row" style="padding-bottom:8px;">
+                                <div class="col">
+                                    <input type="text" class="form-control" placeholder="Password" id="passwordInput" required>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <textarea class="form-control" id="addressInput" rows="3" placeholder="Address" id="addressInput"></textarea>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col">
+                                    <button class="btn btn-primary btn-lg btn-block" type="button" onclick="signUp()">Sign UP</button>
+                                </div>
+                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="container-fluid">
-                <button class="btn btn-danger btn-lg btn-block" data-toggle="modal" data-target="#editInformationModal" onclick="initialData()">
+        </div>
+
+        <div class="row">
+            <!-- user information -->
+            <div class="col-md-6 borderRight">
+                <h1 class="container" style="margin-top:5px">INFORMATION</h1>
+                <div class="container-fluid border border-secondary mb-3" style="margin: 5px;padding: 15px;">
+                    <div class="row">
+                        <div class="col-md-4 text-right informationBlock">
+                            Name
+                        </div>
+                        <div class="col-md-8 texr-left informationBlock" id="nameLabel">
+                            FirstName LastName
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 text-right informationBlock">
+                            Age
+                        </div>
+                        <div class="col-md-8 text-left informationBlock" id="ageLabel">
+                            20
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 text-right informationBlock">
+                            Email
+                        </div>
+                        <div class="col-md-8 text-left informationBlock" id="emailLabel">
+                            example@hotmail.com
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 text-right informationBlock">
+                            Address
+                        </div>
+                        <div class="col-md-8 text-left informationBlock" id="addressLabel">
+                            example for address naaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 text-right informationBlock">
+                            Point
+                        </div>
+                        <div class="col-md-8 text-left informationBlock" id="pointLabel">
+                            2700
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid">
+                    <button class="btn btn-danger btn-lg btn-block" data-toggle="modal" data-target="#editInformationModal" onclick="initialData()">
             EDIT
           </button>
+                </div>
+            </div>
+            <div class="col-md-6" style="padding-inline-start:0 ">
+                <h1 style="margin-top:5px; padding-inline-start: 15px">HISTORY</h1>
+                <table class="table table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Total Price</th>
+                        </tr>
+                    </thead>
+                    <tbody id="showHistory">
+                    </tbody>
+                </table>
             </div>
         </div>
-        <div class="col-md-6" style="padding-inline-start:0 ">
-            <h1 style="margin-top:5px; padding-inline-start: 15px">HISTORY</h1>
-            <table class="table table-hover">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">Date</th>
-                        <th scope="col">Title</th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">Total Price</th>
-                    </tr>
-                </thead>
-                <tbody id="showHistory">
-                </tbody>
-            </table>
-        </div>
-    </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="editInformationModal" tabindex="-1" role="dialog" aria-labelledby="editInformationModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editInformationModalLabel">
-                        Information
-                    </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <!-- Modal -->
+        <div class="modal fade" id="editInformationModal" tabindex="-1" role="dialog" aria-labelledby="editInformationModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editInformationModalLabel">
+                            Information
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
-                </div>
-                <div class="modal-body container-fluid">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">First and last name</span>
-                        </div>
-                        <input type="text" aria-label="First name" class="form-control" id="firstNameEdit" onclick="reset(this.id)" />
-                        <input type="text" aria-label="Last name" class="form-control" id="lastNameEdit" onclick="reset(this.id)" />
                     </div>
+                    <div class="modal-body container-fluid">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">First and last name</span>
+                            </div>
+                            <input type="text" aria-label="First name" class="form-control" id="firstNameEdit" onclick="reset(this.id)" />
+                            <input type="text" aria-label="Last name" class="form-control" id="lastNameEdit" onclick="reset(this.id)" />
+                        </div>
 
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Age</span>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Age</span>
+                            </div>
+                            <input type="number" class="form-control" aria-label="Age" id="ageEdit" onclick="reset(this.id)" />
                         </div>
-                        <input type="number" class="form-control" aria-label="Age" id="ageEdit" onclick="reset(this.id)" />
-                    </div>
 
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Email</span>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Email</span>
+                            </div>
+                            <input type="Email" class="form-control" aria-label="Email" id="emailEdit" onclick="reset(this.id)" />
                         </div>
-                        <input type="Email" class="form-control" aria-label="Email" id="emailEdit" onclick="reset(this.id)" />
-                    </div>
 
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Address</span>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Address</span>
+                            </div>
+                            <textarea class="form-control" id="addressEdit" rows="3" onclick="reset(this.id)"></textarea>
                         </div>
-                        <textarea class="form-control" id="addressEdit" rows="3" onclick="reset(this.id)"></textarea>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-lg btn-block" onclick="editUser()">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-lg btn-block" onclick="editUser()">
               Save changes
             </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <script src="../JScript/scriptUser.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <script src="../JScript/scriptUser.js"></script>
 </body>
 
 </html>

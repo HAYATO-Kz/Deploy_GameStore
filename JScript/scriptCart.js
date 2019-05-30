@@ -17,11 +17,31 @@ $(document).ready(function() {
     }).join(''));
     userID = (JSON.parse(base64)).userId;
 
+    if (typeof token == undefined) {
+        document.getElementById("signInButton").style.display = "block";
+        document.getElementById("userDropDown").style.display = "none";
+    } else {
+        $.ajax({
+            url: "http://localhost:3000/users/details/" + userID,
+            type: "GET",
+            beforeSend: function(req) {
+                req.setRequestHeader("Authorization", "Bearer " + token);
+            },
+            success: function(res) {
+                document.getElementById("userButton").innerHTML =
+                    res.user[0].name.first_name;
+            }
+        });
+
+        document.getElementById("signInButton").style.display = "none";
+        document.getElementById("userDropDown").style.display = "block";
+    }
+
     const request = async() => {
-        const response1 =await fetch(`http://localhost:3000/carts/${userID}`);
+        const response1 = await fetch(`http://localhost:3000/carts/${userID}`);
         const data1 = await response1.json();
-         dataCart = data1.carts;
-        for(var x in dataCart){
+        dataCart = data1.carts;
+        for (var x in dataCart) {
             var list = dataCart[x];
             pQuantity = list.quantity;
             cartID = list._id;
@@ -29,7 +49,7 @@ $(document).ready(function() {
             var data2 = await response2.json();
             var stock = (data2.stock)[0];
             url = `http://localhost:3000/products/findByProductId/${stock.itemId}`
-            if(stock.type==="DLC"){
+            if (stock.type === "DLC") {
                 url = `http://localhost:3000/dlcs/findByDLCId/${stock.itemId}`
             }
             console.log(url);
@@ -37,15 +57,15 @@ $(document).ready(function() {
             var data3 = await response3.json();
             console.log(data3);
             var product;
-            if(stock.type==="DLC"){
+            if (stock.type === "DLC") {
                 product = (data3.dlc)[0];
-            }else{
-            product =(data3.product)[0];
+            } else {
+                product = (data3.product)[0];
             }
             var sID = cartID;
             productTitle = product.name;
-            totalPrice = (product.price) * pQuantity; 
-            var ins = [stock.itemId, pQuantity,list.stock,stock.quantity];
+            totalPrice = (product.price) * pQuantity;
+            var ins = [stock.itemId, pQuantity, list.stock, stock.quantity];
             dataHistory.push(ins);
             document.getElementById('cartBody').innerHTML +=
                 `<tr class="d-flex">
@@ -79,7 +99,7 @@ $(document).ready(function() {
     request();
 });
 
-function deleteRow(cID,docID) {
+function deleteRow(cID, docID) {
     $.ajax({
         url: `http://localhost:3000/carts/delete/${cID}`,
         type: 'DELETE',
@@ -93,7 +113,7 @@ function deleteRow(cID,docID) {
 
 function endBuyProcess() {
 
-    for( var x in dataHistory){
+    for (var x in dataHistory) {
         var his = dataHistory[x];
         var quantity = his[1];
         var stockId = his[2];
@@ -106,11 +126,11 @@ function endBuyProcess() {
         var dd = d.split("-");
         var date = { "year": dd[0], "month": dd[1], "day": dd[2] };
 
-        
+
 
         var data = {
-            "userId":userID,
-            "item":stockId,
+            "userId": userID,
+            "item": stockId,
             "quantity": quantity,
             "date": date
         };
@@ -161,7 +181,7 @@ function edit(id) {
     var quantity = document.getElementById(`newQuantityInput${id}`).value;
     var data = [{
         "propName": "quantity",
-        "value": parseInt( quantity)
+        "value": parseInt(quantity)
     }];
     $.ajax({
         dataType: "json",
@@ -177,6 +197,14 @@ function edit(id) {
     });
 }
 
-function backToIndex(){
-    window.location.href = "index.html" + "?token="+ token;
-  }
+function backToIndex() {
+    window.location.href = "index.html" + "?token=" + token;
+}
+
+function chooseUser() {
+    window.location.href = "user.html" + "?id=" + userID + "@" + token;
+}
+
+function logout() {
+    window.location.href = "index.html";
+}

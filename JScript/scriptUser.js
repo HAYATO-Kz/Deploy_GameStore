@@ -8,6 +8,10 @@ $(document).ready(function() {
     token = (text.split('@'))[1];
     id = (((text.split('@'))[0]).split('='))[1];
     // Get User
+
+    document.getElementById("signInButton").style.display = "none";
+    document.getElementById("userDropDown").style.display = "block";
+
     $.ajax({
             url: "http://localhost:3000/users/details/" + id,
             type: 'GET',
@@ -21,24 +25,25 @@ $(document).ready(function() {
                 document.getElementById('emailLabel').innerHTML = data.email;
                 document.getElementById('addressLabel').innerHTML = data.address;
                 document.getElementById('pointLabel').innerHTML = data.point;
+                document.getElementById("userButton").innerHTML = data.name.first_name;
             }
         })
         // Get History
-        var date;
-        var quantity;
-        var title;
-        var totalPrice;
-        var req = async() => {
-        var res = await fetch(`http://localhost:3000/historys/findByUserId/${id}`,{
+    var date;
+    var quantity;
+    var title;
+    var totalPrice;
+    var req = async() => {
+        var res = await fetch(`http://localhost:3000/historys/findByUserId/${id}`, {
             headers: {
                 'Authorization': 'Bearer ' + token,
-                }
+            }
         })
         var hData = await res.json();
         console.log(hData)
-        // console.log(hData);
+            // console.log(hData);
         hData = hData.history;
-        for(var x in hData){
+        for (var x in hData) {
             var history = hData[x];
             // console.log(history);
             date = history.date;
@@ -50,7 +55,7 @@ $(document).ready(function() {
             var stock = (sData.stock)[0];
             // console.log(iData);
             var url = `http://localhost:3000/products/findByProductId/${stock.itemId}`
-            if(stock.type === "DLC"){
+            if (stock.type === "DLC") {
                 url = `http://localhost:3000/dlcs/findByDLCId//${stock.itemId}`
             }
 
@@ -67,9 +72,9 @@ $(document).ready(function() {
                                                                     <td>${totalPrice}</td>
                                                                 </tr>`
         }
-}
+    }
 
-req();
+    req();
 });
 
 function initialData() {
@@ -140,6 +145,14 @@ function reset(BtnID) {
     document.getElementById(BtnID).value = "";
 }
 
-function backToIndex(){
-    window.location.href = "index.html" + "?token="+ token;
-  }
+function backToIndex() {
+    window.location.href = "index.html" + "?token=" + token;
+}
+
+function chooseCart() {
+    window.location.href = "cart.html" + "?token=" + token;
+}
+
+function logout() {
+    window.location.href = "index.html";
+}
