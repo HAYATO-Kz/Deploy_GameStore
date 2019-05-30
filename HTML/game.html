@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="../CSS/styleGame.css" type="text/css"/>
+    <link rel="stylesheet" href="../CSS/styleGame.css" type="text/css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <title>Document</title>
 </head>
+
 <body id="main">
     <!-- Nav Bar -->
     <div id="navBar">
@@ -18,14 +20,14 @@
                 <span class="navbar-brand brandTitle">GameStore</span>
             </a>
         </nav>
-     </div>
+    </div>
 
     <!-- Hide window [some game descript] -->
     <div id="mySidebar" class="sidebar">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <div class="container">
             <div class="row">
-                 <!-- Release date row -->
+                <!-- Release date row -->
                 <div class="col text-white mb-3">Release Date:</div>
                 <div class="col text-white mb-3" id="releaseDate">9 Aug, 2018</div>
                 <div class="w-100 mb-3" style="border-bottom: 2px solid white"></div>
@@ -66,52 +68,51 @@
                     1440 Baht
                 </div>
                 <button class="btn btn-success btn-lg btn-block" id="buyButton"> BUY </button>
-                <button class="openbtn btn-block btn-lg" onclick="openNav()" style="margin: 0">&#9776; Game detail</button> 
+                <button class="openbtn btn-block btn-lg" onclick="openNav()" style="margin: 0">&#9776; Game detail</button>
             </div>
         </div>
-        
+
         <!-- -->
         <div class="container-fluid">
             <!-- title row -->
-            <div class ="row">
-                        <div class = "col-md-2 text-right titleBlock" >
-                            Title
+            <div class="row">
+                <div class="col-md-2 text-right titleBlock">
+                    Title
+                </div>
+                <div class="col-md-10 titleBlock">
+                    <div class="row">
+                        <div class="col-md-5 text-left" id="gameTitle">
+                            Monster Hunter world
                         </div>
-                        <div class = "col-md-10 titleBlock">
-                            <div class ="row">
-                                <div class= "col-md-5 text-left" id="gameTitle">
-                                    Monster Hunter world
-                                </div>
-                                <div class="col-md-7 rounded text-center">
-                                    <div class="alert alert-secondary" style="width: 200px; font-size:20px">
-                                        In Stock <span class="badge badge-light" id="stockQuantity">9</span>
-                                    <span class="sr-only">unread messages</span>
-                                    </div>
-                                </div>
+                        <div class="col-md-7 rounded text-center">
+                            <div class="alert alert-secondary" style="width: 200px; font-size:20px">
+                                In Stock <span class="badge badge-light" id="stockQuantity">9</span>
+                                <span class="sr-only">unread messages</span>
                             </div>
                         </div>
+                    </div>
+                </div>
             </div>
 
             <!-- description row -->
-            <div class ="row mb-3">
-                <div class = "col-md-2 text-right titleBlock" >
+            <div class="row mb-3">
+                <div class="col-md-2 text-right titleBlock">
                     Description
                 </div>
-                <div class = "col-md-10 titleBlock" id="gameDescription">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et 
-                            dictum interdum, nisi lorem egestas vitae scel<span id="more">erisque enim 
+                <div class="col-md-10 titleBlock" id="gameDescription">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum, nisi lorem egestas vitae scel<span id="more">erisque enim 
                             ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa. Fusce luctus vestibulum 
                             augue ut aliquet. Nunc sagittis dictum nisi, sed ullamcorper ipsum dignissim ac. In at libero sed nunc venenatis imperdiet 
                             sed ornare turpis. Donec vitae dui eget tellus gravida venenatis. Integer fringilla congue eros non fermentum. Sed dapibus 
                             pulvinar nibh tempor porta.</span>
-                            <a href="#" onclick="show()" id="dots">...</a>
-                        </p>
+                        <a href="#" onclick="show()" id="dots">...</a>
+                    </p>
                 </div>
             </div>
 
             <!-- dlc and aceivement button -->
             <div class="container-fluid mb-3">
-                <div class ="row">
+                <div class="row">
                     <div class="col-md-6 text-center">
                         <button class="btn btn-secondary btn-lg btn-block" onclick="showDLC()">
                             DLC
@@ -180,4 +181,5 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
     <script src="../JScript/scriptGame.js"></script>
 </body>
+
 </html>
