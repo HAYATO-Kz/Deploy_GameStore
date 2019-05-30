@@ -49,15 +49,23 @@ $(document).ready(function() {
             var sData = await itemResponse.json();
             var stock = (sData.stock)[0];
             // console.log(iData);
-            var url = `http://localhost:3000/products/findByProductId/${stock.itemId}`
+            var url;
+            console.log(stock);
             if(stock.type === "DLC"){
-                url = `http://localhost:3000/dlcs/findByDLCId//${stock.itemId}`
+                url = `http://localhost:3000/dlcs/findByDLCId/${stock.itemId}`
+            }else{
+                url = `http://localhost:3000/products/findByProductId/${stock.itemId}`
             }
-
+            console.log(stock.itemId);
+            console.log(url)
             var response2 = await fetch(url);
             var iData = await response2.json();
-            item = (iData.product)[0];
-            console.log(item);
+            if(stock.type === "DLC"){
+                item = (iData.dlc)[0];
+            }else{
+                item = (iData.product)[0];
+            }
+            // console.log(item);
             title = item.name;
             totalPrice = quantity * item.price;
             document.getElementById('showHistory').innerHTML += `<tr>

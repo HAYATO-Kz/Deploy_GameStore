@@ -218,21 +218,21 @@ function getWFilter() {
     if (language.length == 0) {
         language = '"NA"';
     }
-    if (category.length >= 2) {
-        categry = '"' + category + '"';
-    }
-
-    var productWF = `{"price":[${price}],"catagory":${category},"typeOfPlaying":${playstyle},"language":${language}}`;
+    var nCategory = `${category}`;
+    // if (category.length >= 2) {
+    //     categry = '[' + nCategory + ']';
+    // }
+    // var date = { "year": dd[0], "month": dd[1], "day": dd[2] };
+    var productWF = `{"price":[${price}],"catagory":${nCategory},"typeOfPlaying":${playstyle},"language":${language}}`;
     // console.log(category);
     // console.log(productWF);
     // var json = JSON.parse(productWF);
     // console.log(json);
 
-    var url = `http://localhost:3000/products/findByFilter/` + productWF;
+    var url = `http://localhost:3000/products/findByFilter/${productWF}`;
     if (category == '"NA"' && playstyle == '"NA"' && language == '"NA"') {
         url = "http://localhost:3000/products";
     }
-
     console.log(url);
     fetch(url)
         .then(function(response) {
