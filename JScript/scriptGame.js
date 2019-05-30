@@ -6,7 +6,7 @@ $(document).ready(function(){
   token = (text.split('@'))[1];
   pID = (((text.split('@'))[0]).split('='))[1];
 
-  fetch(`http://localhost:3000/stocks/findByProductId/${pID}`)
+  fetch(`http://localhost:3000/stocks/findById/${pID}`)
   .then(function(res){
     return res.json();
   })
@@ -161,16 +161,6 @@ function showDLC() {
 }
 
 function goCart(){
-  addToCart();
-  changeToCartPage();
-}
-
-function contShopping(){
-  addToCart();
-  backToIndex();
-}
-
-function addToCart(){
   var stockID;
 
   var base64Url = token.split('.')[1];
@@ -180,7 +170,7 @@ function addToCart(){
 
   var userID = (JSON.parse(base64)).userId;
   var quantity = document.getElementById('inputQuantity').value;
-  fetch(`http://localhost:3000/stocks/findByProductId/${pID}`)
+  fetch(`http://localhost:3000/stocks/findById/${pID}`)
   .then(function(res){
     return res.json();
   })
@@ -199,9 +189,52 @@ function addToCart(){
       url: url,
       type: 'POST',
       data: JSON.stringify(data),
-      contentType: 'application/json'
+      contentType: 'application/json',
+      success: function(data){
+        changeToCartPage();
+      }
   });
   })
+}
+
+function contShopping(){
+  var stockID;
+
+  var base64Url = token.split('.')[1];
+  var base64 = decodeURIComponent(atob(base64Url).split('').map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join(''));
+
+  var userID = (JSON.parse(base64)).userId;
+  var quantity = document.getElementById('inputQuantity').value;
+  fetch(`http://localhost:3000/stocks/findById/${pID}`)
+  .then(function(res){
+    return res.json();
+  })
+  .then(function(data){
+    stockID = (data.stock)[0]._id;
+
+    var data = {
+      "stock": stockID,
+      "user": userID,
+      "quantity": quantity 
+  };
+
+  var url = 'http://localhost:3000/carts/create';
+  $.ajax({
+      dataType: 'json',
+      url: url,
+      type: 'POST',
+      data: JSON.stringify(data),
+      contentType: 'application/json',
+      success: function(data){
+        backToIndex();
+      }
+  });
+  })
+}
+
+function addToCart(){
 }
 
 function reset(){

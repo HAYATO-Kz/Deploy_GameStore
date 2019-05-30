@@ -7,10 +7,9 @@ $(document).ready(function() {
     text = (queryString.split('?'))[1];
     token = (text.split('@'))[1];
     id = (((text.split('@'))[0]).split('='))[1];
-
     // Get User
     $.ajax({
-            url: "http://localhost:3000/users/" + id,
+            url: "http://localhost:3000/users/details/" + id,
             type: 'GET',
             beforeSend: function(req) {
                 req.setRequestHeader('Authorization', 'Bearer ' + token);
@@ -25,40 +24,25 @@ $(document).ready(function() {
             }
         })
         // Get History
-    $.ajax({
-        url: "http://localhost:3000/historys/findByUserId/" + id,
-        type: 'GET',
-        headers: {
-            'Authorization': 'Bearer ' + token,
-            'Content-Type': 'application/json'
-        },
-        success: function(data) {
-            var arrayHistory = data.history;
-            var gameTitle;
-            var gamePrice;
-            for(var x in arrayHistory){
-                var aHistory = arrayHistory[x];
-            
-                fetch(`http://localhost:3000/products/findByProductId/${aHistory.itemId}`)
-                .then(function(res){
-                    return res.json();
-                })
-                .then(function(data){
-                    var game = data.product[0];
-                    gameTitle = game.name;
-                    gamePrice = game.price * aHistory.quantity;
-                })
-                
-                document.getElementById('showHistory').innerHTML += `<tr>
-                                                                        <td>${aHistory.date}</td>
-                                                                        <td>${gameTitle}</td>
-                                                                        <td>${aHistory.quantity}</td>
-                <                                                       td>${gamePrice}</td>
-                                                                    </tr>
-`
-            }
-        }
-    })
+        var date;
+        var quantity;
+        var req = async() => {
+        var res = await fetch(`http://localhost:3000/historys/findByUserId/${id}`,{
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                }
+        })
+        var hData = await res.json();
+        hData = (hData.history)[0];
+        console.log("History")
+        console.log(hData);
+        date = hData.date;
+        quantity = hData.quantity;
+        
+
+}
+
+req();
 });
 
 function initialData() {
