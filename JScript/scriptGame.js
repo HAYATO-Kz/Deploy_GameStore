@@ -9,7 +9,7 @@ $(document).ready(function() {
     text = queryString.split("?")[1];
     pID = text.split("@")[0].split("=")[1];
     token = text.split("@")[1];
-    if (typeof token == undefined) {
+    if (token == "undefined") {
         document.getElementById("signInButton").style.display = "block";
         document.getElementById("userDropDown").style.display = "none";
     } else {
@@ -213,6 +213,12 @@ function showDLC() {
 function goCart() {
     var stockID;
 
+    if(token === "undefined"){
+      $('#buyModal').modal('hide');
+      $('#loginModal').modal('show');
+      return;
+    }
+
     var base64Url = token.split(".")[1];
     var base64 = decodeURIComponent(
         atob(base64Url)
@@ -228,7 +234,10 @@ function goCart() {
     if (quantity > sQuantity) {
         alert("Out of stock");
         return;
-    }
+      }else if(quantity <= 0) {
+        alert("Quantity can be less than 1")
+        return;
+      }
     $(`#buyModal`).modal("hide");
     fetch(`http://localhost:3000/stocks/findById/${pID}`)
         .then(function(res) {
@@ -260,6 +269,12 @@ function goCart() {
 function contShopping() {
     var stockID;
 
+    if(token === "undefined"){
+      $('#buyModal').modal('hide');
+      $('#loginModal').modal('show');
+      return;
+    }
+
     var base64Url = token.split(".")[1];
     var base64 = decodeURIComponent(
         atob(base64Url)
@@ -276,7 +291,10 @@ function contShopping() {
     if (quantity > sQuantity) {
         alert("Out of stock");
         return;
-    }
+      }else if(quantity <= 0) {
+        alert("Quantity can be less than 1")
+        return;
+      }
     $(`#buyModal`).modal("hide");
     fetch(`http://localhost:3000/stocks/findById/${pID}`)
         .then(function(res) {
@@ -318,5 +336,116 @@ function chooseCart() {
 }
 
 function logout() {
-    window.location.href = "index.html";
+  window.location.href = "game.html" + "?id=" + pID + "@" + "undefined";
+}
+
+function change() {
+  $("#loginModal").modal("hide");
+  $("#registerModal").modal("show");
+}
+
+function signUp() {
+  var firstName = $("#firstNameInput").val();
+  var lastName = $("#lastNameInput").val();
+  var age = $("#ageInput").val();
+  var email = $("#emailInput").val();
+  var password = $("#passwordInput").val();
+  var address = $("#addressInput").val();
+
+  if (
+      firstName !== "" &&
+      lastName !== "" &&
+      age !== "" &&
+      email !== "" &&
+      password !== "" &&
+      address !== ""
+  ) {
+      $("#registerModal").modal("hide");
+      $("#loginModal").modal("show");
+      document.getElementById("inputID").value = email;
+      document.getElementById("inputPassword").value = password;
+
+      var data = {
+          name: {
+              first_name: firstName,
+              last_name: lastName
+          },
+          age: age,
+          email: email,
+          password: password,
+          address: address
+      };
+
+      var url = "http://localhost:3000/users/signup";
+
+      $.ajax({
+          dataType: "json",
+          url: url,
+          type: "POST",
+          data: JSON.stringify(data),
+          contentType: "application/json"
+      });
+  } else {
+      alert("Please fill all field!!!");
+  }
+}
+
+function login() {
+  var email = $('#inputID').val();
+  var password = $('#inputPassword').val();
+  if (email === "" || password === "") {
+      alert("Please fill all field");
+      return 0;
+  }
+  var url = 'http://localhost:3000/users/login';
+
+  var data = {
+      email: email,
+      password: password
+  };
+
+  $.ajax({
+      dataType: "json",
+      url: url,
+      type: "POST",
+      data: JSON.stringify(data),
+      contentType: "application/json",
+      async: !1,
+      success: function(res) {
+          token = res.token;
+          var base64Url = token.split(".")[1];
+          var base64 = decodeURIComponent(
+              atob(base64Url)
+              .split("")
+              .map(function(c) {
+                  return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+              })
+              .join("")
+          );
+          updateUser(JSON.parse(base64));
+      }
+  })
+  userID = user.userId;
+  // Change sign in to user butoon
+  $("#loginModal").modal("hide");
+  document.getElementById("signInButton").style.display = "none";
+  document.getElementById("userDropDown").style.display = "block";
+
+  // Get User Json
+  $.ajax({
+      url: "http://localhost:3000/users/details/" + userID,
+      type: "GET",
+      beforeSend: function(req) {
+          req.setRequestHeader("Authorization", "Bearer " + token);
+      },
+      success: function(res) {
+          document.getElementById("userButton").innerHTML =
+              res.user[0].name.first_name;
+      }
+  });
+  window.location.href = "game.html" + "?id=" + pID + "@" + token;
+}
+
+function updateUser(json) {
+  user = json;
 }
