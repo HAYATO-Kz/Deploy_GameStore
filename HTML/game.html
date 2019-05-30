@@ -16,9 +16,7 @@
     <div id="navBar">
         <nav class="navbar navbar-dark bg-dark">
             <!-- Nav title click to home -->
-            <a href="index.html">
-                <span class="navbar-brand brandTitle">GameStore</span>
-            </a>
+                <span class="navbar-brand brandTitle" onclick="backToIndex()">GameStore</span>
         </nav>
     </div>
 
@@ -182,8 +180,8 @@
                     <input type="number" placeholder="quantity" id="inputQuantity" class="form-control" required value=1 onclick="reset()">
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="goCart()">Go to Cart</button>
-                  <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="contShopping()">Continue shopping</button>
+                  <button type="button" class="btn btn-secondary" onclick="goCart()">Go to Cart</button>
+                  <button type="button" class="btn btn-primary" onclick="contShopping()">Continue shopping</button>
                 </div>
             </div>
         </div>

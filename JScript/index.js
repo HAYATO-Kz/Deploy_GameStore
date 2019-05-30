@@ -69,7 +69,7 @@ function signUp() {
     var password = $('#passwordInput').val();
     var address = $('#addressInput').val();
 
-    if(firstName!==""&&lastName!==""&&age!==""&&email!==""&&password!==""){
+    if (firstName !== "" && lastName !== "" && age !== "" && email !== "" && password !== "" && address !== "") {
         $("#registerModal").modal('hide');
         $("#loginModal").modal('show');
         document.getElementById('inputID').value = email;
@@ -85,9 +85,9 @@ function signUp() {
             "password": password,
             "address": address
         };
-    
+
         var url = 'http://localhost:3000/users/signup';
-    
+
         $.ajax({
             dataType: 'json',
             url: url,
@@ -95,6 +95,8 @@ function signUp() {
             data: JSON.stringify(data),
             contentType: 'application/json'
         });
+    } else {
+        alert("Please fill all field!!!")
     }
 }
 
@@ -102,7 +104,7 @@ function login() {
     var email = $('#inputID').val();
     var password = $('#inputPassword').val();
     console.log(email);
-    if(email===""||password===""){
+    if (email === "" || password === "") {
         alert("Please fill all field");
         return 0;
     }
@@ -189,9 +191,7 @@ function playstyleWfilter(checkBox) {
         var index = playstyle.indexOf(labelValue);
         playstyle.splice(index, 1);
     }
-    console.log(labelValue);
-    // getWFilter();
-    console.log(playstyle);
+    getWFilter();
 }
 
 function langaugeWfilter(checkBox) {
@@ -204,9 +204,7 @@ function langaugeWfilter(checkBox) {
         var index = langauge.indexOf(labelValue);
         language.splice(index, 1);
     }
-    console.log(labelValue);
-    // getWFilter();
-    // console.log(langauge);
+    getWFilter();
 }
 
 function getWFilter() {

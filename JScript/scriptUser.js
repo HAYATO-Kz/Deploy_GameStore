@@ -7,10 +7,9 @@ $(document).ready(function() {
     text = (queryString.split('?'))[1];
     token = (text.split('@'))[1];
     id = (((text.split('@'))[0]).split('='))[1];
-
     // Get User
     $.ajax({
-            url: "http://localhost:3000/users/" + id,
+            url: "http://localhost:3000/users/details/" + id,
             type: 'GET',
             beforeSend: function(req) {
                 req.setRequestHeader('Authorization', 'Bearer ' + token);
@@ -25,40 +24,52 @@ $(document).ready(function() {
             }
         })
         // Get History
-    $.ajax({
-        url: "http://localhost:3000/historys/findByUserId/" + id,
-        type: 'GET',
-        headers: {
-            'Authorization': 'Bearer ' + token,
-            'Content-Type': 'application/json'
-        },
-        success: function(data) {
-            var arrayHistory = data.history;
-            var gameTitle;
-            var gamePrice;
-            for(var x in arrayHistory){
-                var aHistory = arrayHistory[x];
-            
-                fetch(`http://localhost:3000/products/findByProductId/${aHistory.itemId}`)
-                .then(function(res){
-                    return res.json();
-                })
-                .then(function(data){
-                    var game = data.product[0];
-                    gameTitle = game.name;
-                    gamePrice = game.price * aHistory.quantity;
-                })
-                
-                document.getElementById('showHistory').innerHTML += `<tr>
-                                                                        <td>${aHistory.date}</td>
-                                                                        <td>${gameTitle}</td>
-                                                                        <td>${aHistory.quantity}</td>
-                <                                                       td>${gamePrice}</td>
-                                                                    </tr>
-`
+        var date;
+        var quantity;
+        var title;
+        var totalPrice;
+        var req = async() => {
+        var res = await fetch(`http://localhost:3000/historys/findByUserId/${id}`,{
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                }
+        })
+        var hData = await res.json();
+        console.log(hData)
+        // console.log(hData);
+        hData = hData.history;
+        for(var x in hData){
+            var history = hData[x];
+            // console.log(history);
+            date = history.date;
+            quantity = history.quantity;
+            var itemId = history.item;
+
+            var itemResponse = await fetch(`http://localhost:3000/stocks/findByStockId/${itemId}`)
+            var sData = await itemResponse.json();
+            var stock = (sData.stock)[0];
+            // console.log(iData);
+            var url = `http://localhost:3000/products/findByProductId/${stock.itemId}`
+            if(stock.type === "DLC"){
+                url = `http://localhost:3000/dlcs/findByDLCId//${stock.itemId}`
             }
+
+            var response2 = await fetch(url);
+            var iData = await response2.json();
+            item = (iData.product)[0];
+            console.log(item);
+            title = item.name;
+            totalPrice = quantity * item.price;
+            document.getElementById('showHistory').innerHTML += `<tr>
+                                                                    <td>${date.day}/${date.month}/${date.year}</td>
+                                                                    <td>${title}</td>
+                                                                    <td>${quantity}</td>
+                                                                    <td>${totalPrice}</td>
+                                                                </tr>`
         }
-    })
+}
+
+req();
 });
 
 function initialData() {
@@ -128,3 +139,7 @@ function editUser() {
 function reset(BtnID) {
     document.getElementById(BtnID).value = "";
 }
+
+function backToIndex(){
+    window.location.href = "index.html" + "?token="+ token;
+  }
