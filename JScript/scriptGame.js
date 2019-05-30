@@ -1,8 +1,20 @@
+var pID;
+var token;
 $(document).ready(function(){
   var queryString = decodeURIComponent(window.location.search);
-  var id = (queryString.split('='))[1];
+  text = (queryString.split('?'))[1];
+  token = (text.split('@'))[1];
+  pID = (((text.split('@'))[0]).split('='))[1];
 
-  fetch(`http://localhost:3000/products/findByProductId/${id}`)
+  fetch(`http://localhost:3000/stocks/findByProductId/${pID}`)
+  .then(function(res){
+    return res.json();
+  })
+  .then(function(data){
+    document.getElementById('stockQuantity').innerHTML = (data.stock)[0].quantity;
+  })
+
+  fetch(`http://localhost:3000/products/findByProductId/${pID}`)
   .then(function(response) {
     return response.json();
   })
@@ -11,6 +23,7 @@ $(document).ready(function(){
     document.getElementById('gamePrice').innerHTML = game.price +" baht";
     document.getElementById('gamePicture').src = `http://localhost:3000/${game.productImage}`
     document.getElementById('gameTitle').innerHTML = game.name;
+    document.getElementById('BuyModalTitleLabel').innerHTML = game.name;
     document.getElementById('releaseDate').innerHTML = game.releaseDate;
     document.getElementById('developer').innerHTML = "";
     document.getElementById('publisher').innerHTML = game.publisher;
@@ -56,35 +69,61 @@ $(document).ready(function(){
       document.getElementById('language').innerHTML+= language;
     }
 
-    // document.getElementById('gameDescription').innerHTML = game.description
+    String.prototype.splice = function(idx, rem, str) {
+      return this.slice(0, idx) + str + this.slice(idx + Math.abs(rem));
+    };
+    var description;
+    if(game.description.length >= 50){
+        description = (game.description).splice(50, 0, '<span id="more">');
+        description = `<p>${description}</span><a href="#" onclick="show()" id="dots">...</a>`
+    }else{
+      description = game.description;
+    }
+    document.getElementById('gameDescription').innerHTML = description
 
-    // for(var x in game.dlcId){
-    //   fetch(`http://localhost:3000/dlcs/findByDLCId/${x}`)
-    //   .then(function(res) {
-    //     return res.json();
-    //   })
-    //   .then(function(dataDlc){
-    //       document.getElementById('gameDLC').innerHTML += `<tr>
-    //                                                         <td>Partner clother</td>
-    //                                                         <td>250</td>
-    //                                                       </tr>`;
-    //   })
-    // }
+    for(var x in game.dlcId){
+      var id = (game.dlcId)[x];
+      fetch(`http://localhost:3000/dlcs/findByDLCId/${id}`)
+      .then(function(res) {
+        return res.json();
+      })
+      .then(function(dataDlc){
+          var dlc = dataDlc.dlc[0];
+          document.getElementById('gameDLC').innerHTML += `<tr onclick="chooseDLC('${dlc._id}')">
+                                                            <td>${dlc.name}</td>
+                                                            <td>${dlc.price}</td>
+                                                          </tr>`;
+      })
+    }
 
-    // for(var x in game.achievementId){
-    //   fetch(`http://localhost:3000/achievements/findByAchievementId/${x}`)
-    //   .then(function(resp) {
-    //     return resp.json();
-    //   })
-    //   .then(function(dataAch){
-    //       document.getElementById('gameAchievement').innerHTML += `<tr>
-    //                                                         <td>Partner clother</td>
-    //                                                         <td>250</td>
-    //                                                       </tr>`;
-    //   })
-    // }
+    for(var x in game.achievementId){
+      var id = (game.achievementId)[x];
+      fetch(`http://localhost:3000/achievements/findByAchievementId/${id}`)
+      .then(function(resp) {
+        return resp.json();
+      })
+      .then(function(dataAch){
+          var ach = dataAch.achievement;
+          document.getElementById('gameAchievement').innerHTML += `<tr>
+                                                            <td>${ach.name}</td>
+                                                            <td>${ach.description}</td>
+                                                          </tr>`;
+      })
+    }
   })
 });
+
+function chooseDLC(id){
+  window.location.href = "DLC.html" + "?id=" + id + "@" + token;
+}
+
+function backToIndex(){
+  window.location.href = "index.html" ;
+}
+
+function changeToCartPage(){
+  window.location.href = "cart.html" + "?token=" +  token;
+}
 
 /* Set the width of the sidebar to 250px and the left margin of the page content to 250px */
 function openNav() {
@@ -119,4 +158,52 @@ function showAchievement() {
 function showDLC() {
     $('#achievementCollapse').collapse('hide');
     $('#dlcCollapse').collapse('show');
+}
+
+function goCart(){
+  addToCart();
+  changeToCartPage();
+}
+
+function contShopping(){
+  addToCart();
+  backToIndex();
+}
+
+function addToCart(){
+  var stockID;
+
+  var base64Url = token.split('.')[1];
+  var base64 = decodeURIComponent(atob(base64Url).split('').map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join(''));
+
+  var userID = (JSON.parse(base64)).userId;
+  var quantity = document.getElementById('inputQuantity').value;
+  fetch(`http://localhost:3000/stocks/findByProductId/${pID}`)
+  .then(function(res){
+    return res.json();
+  })
+  .then(function(data){
+    stockID = (data.stock)[0]._id;
+
+    var data = {
+      "stock": stockID,
+      "user": userID,
+      "quantity": quantity 
+  };
+
+  var url = 'http://localhost:3000/carts/create';
+  $.ajax({
+      dataType: 'json',
+      url: url,
+      type: 'POST',
+      data: JSON.stringify(data),
+      contentType: 'application/json'
+  });
+  })
+}
+
+function reset(){
+  document.getElementById('inputQuantity').value= "";
 }

@@ -67,7 +67,7 @@
                 <div class="alert alert-success text-center" role="alert" style="margin-bottom: 0" id="gamePrice">
                     1440 Baht
                 </div>
-                <button class="btn btn-success btn-lg btn-block" id="buyButton"> BUY </button>
+                <button class="btn btn-success btn-lg btn-block" id="buyButton" data-toggle="modal" data-target="#buyModal"> BUY </button>
                 <button class="openbtn btn-block btn-lg" onclick="openNav()" style="margin: 0">&#9776; Game detail</button>
             </div>
         </div>
@@ -86,7 +86,7 @@
                         </div>
                         <div class="col-md-7 rounded text-center">
                             <div class="alert alert-secondary" style="width: 200px; font-size:20px">
-                                In Stock <span class="badge badge-light" id="stockQuantity">9</span>
+                                In Stock <span class="badge badge-light" id="stockQuantity"></span>
                                 <span class="sr-only">unread messages</span>
                             </div>
                         </div>
@@ -136,14 +136,6 @@
                             </tr>
                         </thead>
                         <tbody id="gameDLC">
-                            <tr>
-                                <td>Partner clother</td>
-                                <td>250</td>
-                            </tr>
-                            <tr>
-                                <td>Monster hunter wordl: Iceborn</td>
-                                <td>1440</td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -175,6 +167,27 @@
         </div>
     </div>
 
+    <!-- buy process modal-->
+    <div class="modal fade" id="buyModal" tabindex="-1" role="dialog" aria-labelledby="BuyModalTitleLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="BuyModalTitleLabel"></h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body container text-center">
+                    <label for="inputQuantity" style="padding-inline-end: 20px; font-size: 20px">Quantity</label>
+                    <input type="number" placeholder="quantity" id="inputQuantity" class="form-control" required value=1 onclick="reset()">
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="goCart()">Go to Cart</button>
+                  <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="contShopping()">Continue shopping</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

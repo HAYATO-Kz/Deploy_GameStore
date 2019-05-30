@@ -8,6 +8,7 @@ var language = [];
 var price = [0, 10000000];
 
 $(document).ready(function() {
+    console.log(token);
     document.getElementById('userDropDown').style.display = "none"
     fetch("http://localhost:3000/products")
         .then(function(response) {
@@ -40,7 +41,7 @@ function change() {
 }
 
 function chooseGame(id) {
-    window.location.href = "game.html" + "?id=" + id;
+    window.location.href = "game.html" + "?id=" + id + "@" + token;
 }
 
 function chooseUser() {
@@ -68,35 +69,44 @@ function signUp() {
     var password = $('#passwordInput').val();
     var address = $('#addressInput').val();
 
-    var data = {
-        "name": {
-            "first_name": firstName,
-            "last_name": lastName
-        },
-        "age": age,
-        "email": email,
-        "password": password,
-        "address": address
-    };
+    if(firstName!==""&&lastName!==""&&age!==""&&email!==""&&password!==""){
+        $("#registerModal").modal('hide');
+        $("#loginModal").modal('show');
+        document.getElementById('inputID').value = email;
+        document.getElementById('inputPassword').value = password;
 
-    var url = 'http://localhost:3000/users/signup';
-
-    $.ajax({
-        dataType: 'json',
-        url: url,
-        type: 'POST',
-        data: JSON.stringify(data),
-        contentType: 'application/json'
-    });
-
-    $("#registerModal").modal('hide');
-
+        var data = {
+            "name": {
+                "first_name": firstName,
+                "last_name": lastName
+            },
+            "age": age,
+            "email": email,
+            "password": password,
+            "address": address
+        };
+    
+        var url = 'http://localhost:3000/users/signup';
+    
+        $.ajax({
+            dataType: 'json',
+            url: url,
+            type: 'POST',
+            data: JSON.stringify(data),
+            contentType: 'application/json'
+        });
+    }
 }
 
 function login() {
     var email = $('#inputID').val();
     var password = $('#inputPassword').val();
-
+    console.log(email);
+    if(email===""||password===""){
+        alert("Please fill all field");
+        return 0;
+    }
+    console.log("still what");
     var url = 'http://localhost:3000/users/login';
 
     var data = {
@@ -120,8 +130,9 @@ function login() {
             updateUser(JSON.parse(base64));
         }
     })
+    console.log(user.userId);
     userID = user.userId;
-
+    console.log(userID);
     // Change sign in to user butoon
     $("#loginModal").modal('hide');
     document.getElementById('signInButton').style.display = "none"

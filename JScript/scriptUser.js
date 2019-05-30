@@ -2,8 +2,6 @@ var text
 var token
 var id
 
-
-
 $(document).ready(function() {
     var queryString = decodeURIComponent(window.location.search);
     text = (queryString.split('?'))[1];
@@ -43,7 +41,7 @@ $(document).ready(function() {
             
                 fetch(`http://localhost:3000/products/findByProductId/${aHistory.itemId}`)
                 .then(function(res){
-                    return JSON.parseres;
+                    return res.json();
                 })
                 .then(function(data){
                     var game = data.product[0];
