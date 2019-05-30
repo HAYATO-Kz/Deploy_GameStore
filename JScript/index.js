@@ -5,26 +5,26 @@ var userID;
 var category = [];
 var playstyle = [];
 var language = [];
-var price = [0,10000000];
+var price = [0, 10000000];
 
-$(document).ready(function () {
+$(document).ready(function() {
     document.getElementById('userDropDown').style.display = "none"
     fetch("http://localhost:3000/products")
-    .then(function(response) {
-        return response.json();
-      })
-    .then(function(data) {
-        product = data.products;
-        reRun(product);
-    })
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            product = data.products;
+            reRun(product);
+        })
 });
 
-function reRun(products){
+function reRun(products) {
     var showGame = document.getElementById('showGame');
     showGame.innerHTML = '';
-    for(var x in products){
+    for (var x in products) {
         var game = products[x];
-    showGame.innerHTML += `<div class="card" style="width: 325px;margin:10px;" onclick="chooseGame('${game._id}')">
+        showGame.innerHTML += `<div class="card" style="width: 325px;margin:10px;" onclick="chooseGame('${game._id}')">
                                 <img class="card-img-top" src="http://localhost:3000/${game.productImage}" alt="Card image cap">
                                 <div class="card-body">
                                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -39,25 +39,25 @@ function change() {
     $("#registerModal").modal('show');
 }
 
-function chooseGame(id){
-    window.location.href = "game.html" +"?id="+ id;
+function chooseGame(id) {
+    window.location.href = "game.html" + "?id=" + id;
 }
 
 function chooseUser() {
-    window.location.href = "user.html" + "?id=" + userID + "@" + token; 
+    window.location.href = "user.html" + "?id=" + userID + "@" + token;
 }
 
-function search(){
+function search() {
     var title = document.getElementById('searchTitle').value;
 
     fetch(`http://localhost:3000/products/findByName/${title}`)
-    .then(function(response){
-        return response.json();
-    })
-    .then(function(data){
-        var id = data.product[0]._id;
-        chooseGame(id);
-    })
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            var id = data.product[0]._id;
+            chooseGame(id);
+        })
 }
 
 function signUp() {
@@ -129,7 +129,7 @@ function login() {
 
     // Get User Json
     $.ajax({
-        url: "http://localhost:3000/users/" + userID,
+        url: "http://localhost:3000/users/details/" + userID,
         type: 'GET',
         beforeSend: function(req) {
             req.setRequestHeader('Authorization', 'Bearer ' + token);
@@ -153,13 +153,13 @@ function updateUser(json) {
     user = json;
 }
 
-function categoryWfilter(checkBox){
-    
+function categoryWfilter(checkBox) {
+
     var labelValue = checkBox.value;
     var checkBoxStatus = checkBox.checked;
-    if(checkBoxStatus){
-        category.push('"'+labelValue+'"');
-    }else{
+    if (checkBoxStatus) {
+        category.push('"' + labelValue + '"');
+    } else {
         var index = category.indexOf(labelValue);
         category.splice(index, 1);
     }
@@ -168,28 +168,28 @@ function categoryWfilter(checkBox){
     // console.log(category);
 }
 
-function playstyleWfilter(checkBox){
-    
+function playstyleWfilter(checkBox) {
+
     var labelValue = checkBox.value;
     var checkBoxStatus = checkBox.checked;
-    if(checkBoxStatus){
+    if (checkBoxStatus) {
         playstyle.push(labelValue);
-    }else{
+    } else {
         var index = playstyle.indexOf(labelValue);
         playstyle.splice(index, 1);
     }
-console.log(labelValue);
+    console.log(labelValue);
     // getWFilter();
     console.log(playstyle);
 }
 
-function langaugeWfilter(checkBox){
+function langaugeWfilter(checkBox) {
 
     var labelValue = checkBox.value;
     var checkBoxStatus = checkBox.checked;
-    if(checkBoxStatus){
+    if (checkBoxStatus) {
         langauge.push(labelValue);
-    }else{
+    } else {
         var index = langauge.indexOf(labelValue);
         language.splice(index, 1);
     }
@@ -198,18 +198,18 @@ function langaugeWfilter(checkBox){
     // console.log(langauge);
 }
 
-function getWFilter(){
-    
-    if(category.length == 0){
+function getWFilter() {
+
+    if (category.length == 0) {
         category = '"NA"';
     }
-    if(playstyle.length == 0){
+    if (playstyle.length == 0) {
         playstyle = '"NA"';
     }
-    if(language.length == 0){
+    if (language.length == 0) {
         language = '"NA"';
     }
-    if(category.length >= 2){
+    if (category.length >= 2) {
         categry = '"' + category + '"';
     }
 
@@ -220,28 +220,28 @@ function getWFilter(){
     // console.log(json);
 
     var url = `http://localhost:3000/products/findByFilter/` + productWF;
-    if(category=='"NA"'&&playstyle=='"NA"'&&language=='"NA"'){
-     url = "http://localhost:3000/products";
+    if (category == '"NA"' && playstyle == '"NA"' && language == '"NA"') {
+        url = "http://localhost:3000/products";
     }
 
     console.log(url);
     fetch(url)
-    .then(function(response) {
-        return response.json();
-      })
-    .then(function(data) {
-        console.log(data);
-        product = data.products;
-        reRun(product);
-    })
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            console.log(data);
+            product = data.products;
+            reRun(product);
+        })
 
-    if(category == '"NA"'){
+    if (category == '"NA"') {
         category = [];
     }
-    if(playstyle == '"NA"'){
+    if (playstyle == '"NA"') {
         playstyle = [];
     }
-    if(language == '"NA"'){
+    if (language == '"NA"') {
         language = [];
     }
 }
