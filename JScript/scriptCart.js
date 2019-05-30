@@ -28,9 +28,20 @@ $(document).ready(function() {
             var response2 = await fetch(`http://localhost:3000/stocks/findByStockId/${list.stock}`);
             var data2 = await response2.json();
             var stock = (data2.stock)[0];
-            var response3 = await fetch(`http://localhost:3000/products/findByProductId/${stock.itemId}`);
+            url = `http://localhost:3000/products/findByProductId/${stock.itemId}`
+            if(stock.type==="DLC"){
+                url = `http://localhost:3000/dlcs/findByDLCId/${stock.itemId}`
+            }
+            console.log(url);
+            var response3 = await fetch(url);
             var data3 = await response3.json();
-            var product =(data3.product)[0];
+            console.log(data3);
+            var product;
+            if(stock.type==="DLC"){
+                product = (data3.dlc)[0];
+            }else{
+            product =(data3.product)[0];
+            }
             var sID = cartID;
             productTitle = product.name;
             totalPrice = (product.price) * pQuantity; 
@@ -93,7 +104,7 @@ function endBuyProcess() {
         console.log(newQuantity);
         var d = new Date().toISOString().split("T")[0];
         var dd = d.split("-");
-        var date = `{"year" : ${dd[0]},"month" : ${dd[1]},"day" : ${dd[2]}`
+        var date = { "year": dd[0], "month": dd[1], "day": dd[2] };
 
         
 
@@ -165,3 +176,7 @@ function edit(id) {
         }
     });
 }
+
+function backToIndex(){
+    window.location.href = "index.html" + "?token="+ token;
+  }

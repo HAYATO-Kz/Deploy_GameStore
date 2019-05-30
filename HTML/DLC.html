@@ -13,9 +13,7 @@
     <div id="navBar">
         <nav class="navbar navbar-dark bg-dark">
             <!-- Nav title click to home -->
-            <a href="index.html">
-                <span class="navbar-brand brandTitle">GameStore</span>
-            </a>
+            <span class="navbar-brand brandTitle" onclick="backToIndex()">GameStore</span>
         </nav>
      </div>
 
@@ -51,7 +49,7 @@
 
                 <!-- language row -->
                 <div class="col text-white mb-3">Language:</div>
-                <div class="col text-white mb-3" id="tOPlaying">English, Japanese, French, German</div>
+                <div class="col text-white mb-3" id="language">English, Japanese, French, German</div>
             </div>
         </div>
     </div>
@@ -64,7 +62,7 @@
                 <div class="alert alert-success text-center" role="alert" style="margin-bottom: 0" id="dlcPrice">
                     1440 Baht
                 </div>
-                <button class="btn btn-success btn-lg btn-block" id="buyButton"> BUY </button>
+                <button class="btn btn-success btn-lg btn-block" id="buyButton" data-toggle="modal" data-target="#buyModal"> BUY </button>
                 <button class="openbtn btn-block btn-lg" onclick="openNav()" style="margin: 0">&#9776; DLC detail</button>
             </div>
         </div>
@@ -107,6 +105,28 @@
                 </div>
             </div>
         </div> 
+
+            <!-- buy process modal-->
+        <div class="modal fade" id="buyModal" tabindex="-1" role="dialog" aria-labelledby="BuyModalTitleLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="BuyModalTitleLabel"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body container text-center">
+                        <label for="inputQuantity" style="padding-inline-end: 20px; font-size: 20px">Quantity</label>
+                        <input type="number" placeholder="quantity" id="inputQuantity" class="form-control" required value=1 onclick="reset()">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" onclick="goCart()">Go to Cart</button>
+                        <button type="button" class="btn btn-primary" onclick="contShopping()">Continue shopping</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 

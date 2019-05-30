@@ -1,5 +1,6 @@
 var pID;
 var token;
+var sQuantity;
 $(document).ready(function(){
   var queryString = decodeURIComponent(window.location.search);
   text = (queryString.split('?'))[1];
@@ -11,7 +12,8 @@ $(document).ready(function(){
     return res.json();
   })
   .then(function(data){
-    document.getElementById('stockQuantity').innerHTML = (data.stock)[0].quantity;
+    sQuantity = (data.stock)[0].quantity;
+    document.getElementById('stockQuantity').innerHTML = sQuantity;
   })
 
   fetch(`http://localhost:3000/products/findByProductId/${pID}`)
@@ -118,7 +120,7 @@ function chooseDLC(id){
 }
 
 function backToIndex(){
-  window.location.href = "index.html" ;
+  window.location.href = "index.html" + "?token="+ token;
 }
 
 function changeToCartPage(){
@@ -170,6 +172,11 @@ function goCart(){
 
   var userID = (JSON.parse(base64)).userId;
   var quantity = document.getElementById('inputQuantity').value;
+  if(quantity > sQuantity){
+    alert("Out of stock");
+    return
+  }
+  $(`#buyModal`).modal('hide');
   fetch(`http://localhost:3000/stocks/findById/${pID}`)
   .then(function(res){
     return res.json();
@@ -207,6 +214,12 @@ function contShopping(){
 
   var userID = (JSON.parse(base64)).userId;
   var quantity = document.getElementById('inputQuantity').value;
+
+  if(quantity > sQuantity){
+    alert("Out of stock");
+    return
+  }
+  $(`#buyModal`).modal('hide');
   fetch(`http://localhost:3000/stocks/findById/${pID}`)
   .then(function(res){
     return res.json();
@@ -232,9 +245,6 @@ function contShopping(){
       }
   });
   })
-}
-
-function addToCart(){
 }
 
 function reset(){

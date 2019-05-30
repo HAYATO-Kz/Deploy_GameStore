@@ -189,9 +189,7 @@ function playstyleWfilter(checkBox) {
         var index = playstyle.indexOf(labelValue);
         playstyle.splice(index, 1);
     }
-    console.log(labelValue);
-    // getWFilter();
-    console.log(playstyle);
+    getWFilter();
 }
 
 function langaugeWfilter(checkBox) {
@@ -204,9 +202,7 @@ function langaugeWfilter(checkBox) {
         var index = langauge.indexOf(labelValue);
         language.splice(index, 1);
     }
-    console.log(labelValue);
-    // getWFilter();
-    // console.log(langauge);
+    getWFilter();
 }
 
 function getWFilter() {
