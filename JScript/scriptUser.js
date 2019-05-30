@@ -35,7 +35,30 @@ $(document).ready(function() {
             'Content-Type': 'application/json'
         },
         success: function(data) {
-            console.log(data)
+            var arrayHistory = data.history;
+            var gameTitle;
+            var gamePrice;
+            for(var x in arrayHistory){
+                var aHistory = arrayHistory[x];
+            
+                fetch(`http://localhost:3000/products/findByProductId/${aHistory.itemId}`)
+                .then(function(res){
+                    return JSON.parseres;
+                })
+                .then(function(data){
+                    var game = data.product[0];
+                    gameTitle = game.name;
+                    gamePrice = game.price * aHistory.quantity;
+                })
+                
+                document.getElementById('showHistory').innerHTML += `<tr>
+                                                                        <td>${aHistory.date}</td>
+                                                                        <td>${gameTitle}</td>
+                                                                        <td>${aHistory.quantity}</td>
+                <                                                       td>${gamePrice}</td>
+                                                                    </tr>
+`
+            }
         }
     })
 });
