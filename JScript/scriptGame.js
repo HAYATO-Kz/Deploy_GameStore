@@ -103,13 +103,11 @@ $(document).ready(function(){
 
     for(var x in game.achievementId){
       var id = (game.achievementId)[x];
-      console.log(id);
       fetch(`http://localhost:3000/achievements/findByAchievementId/${id}`)
       .then(function(resp) {
         return resp.json();
       })
       .then(function(dataAch){
-        // console.log(dataAch);
           var ach = dataAch.achievement;
           if(ach.length===0){
             return;

@@ -35,12 +35,9 @@ $(document).ready(function() {
                 }
         })
         var hData = await res.json();
-        console.log(hData)
-        // console.log(hData);
         hData = hData.history;
         for(var x in hData){
             var history = hData[x];
-            // console.log(history);
             date = history.date;
             quantity = history.quantity;
             var itemId = history.item;
@@ -48,16 +45,12 @@ $(document).ready(function() {
             var itemResponse = await fetch(`http://localhost:3000/stocks/findByStockId/${itemId}`)
             var sData = await itemResponse.json();
             var stock = (sData.stock)[0];
-            // console.log(iData);
             var url;
-            console.log(stock);
             if(stock.type === "DLC"){
                 url = `http://localhost:3000/dlcs/findByDLCId/${stock.itemId}`
             }else{
                 url = `http://localhost:3000/products/findByProductId/${stock.itemId}`
             }
-            console.log(stock.itemId);
-            console.log(url)
             var response2 = await fetch(url);
             var iData = await response2.json();
             if(stock.type === "DLC"){
@@ -65,7 +58,6 @@ $(document).ready(function() {
             }else{
                 item = (iData.product)[0];
             }
-            // console.log(item);
             title = item.name;
             totalPrice = quantity * item.price;
             document.getElementById('showHistory').innerHTML += `<tr>
@@ -136,7 +128,6 @@ function editUser() {
             'Content-Type': 'application/json'
         },
         success: function(res) {
-            console.log("SUCCESS")
         }
     })
 

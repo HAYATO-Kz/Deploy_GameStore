@@ -23,7 +23,6 @@ $(document).ready(function(){
     })
     .then(function(data) {
       var dlc = data.dlc[0];
-      console.log(dlc);
       document.getElementById('dlcPrice').innerHTML = dlc.price +" baht";
       document.getElementById('dlcPicture').src = `http://localhost:3000/${dlc.dlcImage}`
       document.getElementById('dlcTitle').innerHTML = dlc.name;

@@ -32,10 +32,8 @@ $(document).ready(function() {
             if(stock.type==="DLC"){
                 url = `http://localhost:3000/dlcs/findByDLCId/${stock.itemId}`
             }
-            console.log(url);
             var response3 = await fetch(url);
             var data3 = await response3.json();
-            console.log(data3);
             var product;
             if(stock.type==="DLC"){
                 product = (data3.dlc)[0];
@@ -99,9 +97,6 @@ function endBuyProcess() {
         var stockId = his[2];
         var sQuantity = his[3];
         var newQuantity = sQuantity - quantity;
-        console.log(sQuantity);
-        console.log(quantity);
-        console.log(newQuantity);
         var d = new Date().toISOString().split("T")[0];
         var dd = d.split("-");
         var date = { "year": dd[0], "month": dd[1], "day": dd[2] };
@@ -157,7 +152,6 @@ function useNew() {
 }
 
 function edit(id) {
-    console.log(id);
     var quantity = document.getElementById(`newQuantityInput${id}`).value;
     var data = [{
         "propName": "quantity",
