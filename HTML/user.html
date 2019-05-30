@@ -11,113 +11,23 @@
 </head>
 
 <body>
-    <!-- Nav Bar -->
-    <div>
-        <nav class="navbar navbar-dark bg-dark">
-            <!-- Nav title click to home -->
-            <span class="navbar-brand brandTitle" onclick="backToIndex()">GameStore</span>
-            <form class="form-inlin">
-                <div class="btn-group dropleft" id="userDropDown">
-                    <button id="userButton" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    </button>
-                    <div class="dropdown-menu">
-                        <a onclick="chooseCart()" class="dropdown-item" href="#">Cart</a>
-                        <div class="dropdown-divider"></div>
-                        <a onclick="logout()" class="dropdown-item" href="#">Logout</a>
-                    </div>
-                </div>
-                <button id="signInButton" type="button" class="btn btn-light" data-toggle="modal" data-target="#loginModal">Sign in</button>
-                <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="loginModalLabel">Sign in</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                            </div>
-
-                            <div class="modal-body setCenter setMarginAuto">
-                                <form class>
-                                    <div class="form-group row mb-3">
-                                        <label for="inputID" class="col-sm-2 col-form-label">Email</label>
-                                        <div class="col-sm-10">
-                                            <input value="new@ku.th" type="text" class="form-control" id="inputID" placeholder="Email" required>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-                                        <div class="col-sm-10">
-                                            <input value="123456" type="password" class="form-control" id="inputPassword" placeholder="Password" required>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-
-                            <div class="modal-footer">
-                                <button type="button" onclick="login()" class="btn btn-primary">Sign in</button>
-                                <button type="button" onclick="change()" id="regisBtn" class="btn btn-danger" style="position: absolute; left: 10px;">Sign up</button>
-                            </div>
+        <!-- Nav Bar -->
+        <div>
+            <nav class="navbar navbar-dark bg-dark">
+                <!-- Nav title click to home -->
+                <span class="navbar-brand brandTitle" onclick="backToIndex()">GameStore</span>
+                <form class="form-inlin">
+                    <div class="btn-group dropleft" id="userDropDown">
+                        <button id="userButton" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        </button>
+                        <div class="dropdown-menu">
+                            <a onclick="chooseUser()" class="dropdown-item" href="#">Information</a>
+                            <div class="dropdown-divider"></div>
+                            <a onclick="logout()" class="dropdown-item" href="#">Logout</a>
                         </div>
                     </div>
-            </form>
-        </nav>
-
-        <!-- Register form -->
-        <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-
-                    <div class="modal-header">
-                        <h3 class="modal-title" id="loginModalLabel">Sign up</h3>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-
-                    <div class="modal-body">
-                        <form>
-                            <div class="row" style="padding-bottom:8px;">
-                                <div class="col-md-5">
-                                    <input type="text" class="form-control" placeholder="First name" id="firstNameInput" required>
-                                </div>
-                                <div class="col-md-5" style="padding-inline-end: 10px; padding-inline-start: 5px">
-                                    <input type="text" class="form-control" placeholder="Last name" id="lastNameInput" required>
-                                </div>
-                                <div class="col-md-2" style="padding-inline-start: 2px">
-                                    <input type="number" class="form-control" placeholder="Age" id="ageInput" required>
-                                </div>
-                            </div>
-
-                            <div class="row" style="padding-bottom:8px;">
-                                <div class="col">
-                                    <input type="email" class="form-control" placeholder="Email" id="emailInput" required>
-                                </div>
-                            </div>
-
-                            <div class="row" style="padding-bottom:8px;">
-                                <div class="col">
-                                    <input type="text" class="form-control" placeholder="Password" id="passwordInput" required>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col">
-                                    <textarea class="form-control" id="addressInput" rows="3" placeholder="Address" id="addressInput"></textarea>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="row">
-                                <div class="col">
-                                    <button class="btn btn-primary btn-lg btn-block" type="button" onclick="signUp()">Sign UP</button>
-                                </div>
-                        </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                </form>
+            </nav>
         </div>
 
         <div class="row">

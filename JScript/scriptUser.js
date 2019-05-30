@@ -9,9 +9,6 @@ $(document).ready(function() {
     id = (((text.split('@'))[0]).split('='))[1];
     // Get User
 
-    document.getElementById("signInButton").style.display = "none";
-    document.getElementById("userDropDown").style.display = "block";
-
     $.ajax({
             url: "http://localhost:3000/users/details/" + id,
             type: 'GET',

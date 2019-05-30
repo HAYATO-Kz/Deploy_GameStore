@@ -203,6 +203,7 @@ function login() {
                 res.user[0].name.first_name;
         }
     });
+    window.location.href = "index.html" + "?token=" + token;
 }
 
 function logout() {
@@ -210,6 +211,7 @@ function logout() {
     token = null;
     document.getElementById("signInButton").style.display = "block";
     document.getElementById("userDropDown").style.display = "none";
+    window.location.href = "index.html";
 }
 
 function updateUser(json) {

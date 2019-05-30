@@ -60,7 +60,7 @@ $(document).ready(function() {
             } else {
                 product = (data3.product)[0];
             }
-            var sID = cartID;
+            var cID = cartID;
             productTitle = product.name;
             totalPrice = (product.price) * pQuantity;
             var ins = [stock.itemId, pQuantity, list.stock, stock.quantity];
@@ -78,14 +78,14 @@ $(document).ready(function() {
                                 </button>
                                 <div class="dropdown-menu">
                                     <div class="form-group container">
-                                        <label for="newQuantityInput${sID}">New Quantity</label>
-                                        <input type="number" id="newQuantityInput${sID}" class="form-control mb-3">
-                                        <button class="btn btn-secondary btn-block" onclick="edit('${sID}')">EDIT</button>
+                                        <label for="newQuantityInput${cID}">New Quantity</label>
+                                        <input type="number" id="newQuantityInput${cID}" class="form-control mb-3">
+                                        <button class="btn btn-secondary btn-block" onclick="edit('${cID}','${stock.quantity}')">EDIT</button>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-2">
-                                 <button type="button" class="close" aria-label="Close" onclick="deleteRow('${sID}',this)">
+                                 <button type="button" class="close" aria-label="Close" onclick="deleteRow('${cID}',this)">
                                      <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
@@ -171,8 +171,15 @@ function useNew() {
     document.getElementById("inputNewAddress").disabled = false;
 }
 
-function edit(id) {
+function edit(id,sQuantity) {
     var quantity = document.getElementById(`newQuantityInput${id}`).value;
+    if(quantity <= 0) {
+        alert("Quantity can be less than 1")
+        return;
+    }else if(quantity > sQuantity){
+        alert("out of stock");
+        return
+    }
     var data = [{
         "propName": "quantity",
         "value": parseInt(quantity)
