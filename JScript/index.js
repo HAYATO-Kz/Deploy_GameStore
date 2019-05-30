@@ -69,7 +69,7 @@ function signUp() {
     var password = $('#passwordInput').val();
     var address = $('#addressInput').val();
 
-    if(firstName!==""&&lastName!==""&&age!==""&&email!==""&&password!==""){
+    if(firstName!==""&&lastName!==""&&age!==""&&email!==""&&password!==""&&address!==""){
         $("#registerModal").modal('hide');
         $("#loginModal").modal('show');
         document.getElementById('inputID').value = email;
@@ -95,6 +95,8 @@ function signUp() {
             data: JSON.stringify(data),
             contentType: 'application/json'
         });
+    }else{
+        alert("Please fill all field!!!")
     }
 }
 
