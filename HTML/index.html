@@ -128,7 +128,7 @@
                     <!-- search button div -->
                     <div class="row rowleft">
                         <div class="input-group input-group-lg">
-                            <input type="text" class="form-control" placeholder="Game title" aria-label="Recipient's username" aria-describedby="button-addon2">
+                            <input type="text" class="form-control" placeholder="Game title" aria-label="search input" id="searchTitle">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="button" id="button-addon2" onclick="search()">Search</button>
                             </div>
@@ -145,20 +145,20 @@
                                 <div>
                                     <div class="row container-fluid">
                                         <div class="col-md-auto">
-                                            <input class="form-check-input" type="checkbox" id="ActionCheckbox" value="option1" onclick="check()">
-                                            <label class="form-check-label" for="ActionCheckbox">Action</label>
+                                            <input class="form-check-input" type="checkbox" id="actionCheckbox" value="Action" onclick="categoryWfilter(this)">
+                                            <label class="form-check-label" for="actionCheckbox">Action</label>
                                         </div>
                                         <div class="col-md-auto">
-                                            <input class="form-check-input" type="checkbox" id="AdventureCheckbox" value="option1" onclick="check()">
-                                            <label class="form-check-label" for="AdventureCheckbox">Adventure</label>
+                                            <input class="form-check-input" type="checkbox" id="adventureCheckbox" value="Adventure" onclick="categoryWfilter(this)">
+                                            <label class="form-check-label" for="adventureCheckbox">Adventure</label>
                                         </div>
                                         <div class="col-md-auto">
-                                            <input class="form-check-input" type="checkbox" id="HorrorCheckbox" value="option1" onclick="check()">
-                                            <label class="form-check-label" for="HorrorCheckbox">Horror</label>
+                                            <input class="form-check-input" type="checkbox" id="horrorCheckbox" value="Horror" onclick="categoryWfilter(this)">
+                                            <label class="form-check-label" for="horrorCheckbox">Horror</label>
                                         </div>
                                         <div class="col-md-auto">
-                                            <input class="form-check-input" type="checkbox" id="ScifiCheckbox" value="option1" onclick="check()">
-                                            <label class="form-check-label" for="ScifiCheckbox">Scifi</label>
+                                            <input class="form-check-input" type="checkbox" id="scifiCheckbox" value="Scifi" onclick="categoryWfilter(this)">
+                                            <label class="form-check-label" for="scifiCheckbox">Scifi</label>
                                         </div>
                                     </div>
                                 </div>
@@ -176,16 +176,16 @@
                                 <div>
                                     <div class="row container-fluid">
                                         <div class="col-md-auto">
-                                            <input class="form-check-input" type="checkbox" id="MultiplayerCheckbox" value="option1" onclick="check()">
-                                            <label class="form-check-label" for="MultiplayerCheckbox">Multiplayer</label>
+                                            <input class="form-check-input" type="checkbox" id="multiplayerCheckbox" value="Multiplayer" onclick="playstyleWfilter(this)">
+                                            <label class="form-check-label" for="multiplayerCheckbox">Multiplayer</label>
                                         </div>
                                         <div class="col-md-auto">
-                                            <input class="form-check-input" type="checkbox" id="SinglePlayerCheckbox" value="option1" onclick="check()">
-                                            <label class="form-check-label" for="SinglePlayerCheckbox">Single player</label>
+                                            <input class="form-check-input" type="checkbox" id="singlePlayerCheckbox" value="Single Player" onclick="playstyleWfilter(this)">
+                                            <label class="form-check-label" for="singlePlayerCheckbox">Single player</label>
                                         </div>
                                         <div class="col-md-auto">
-                                            <input class="form-check-input" type="checkbox" id="Coopcheckbox" value="option1" onclick="check()">
-                                            <label class="form-check-label" for="CoopCheckbox">Co-op</label>
+                                            <input class="form-check-input" type="checkbox" id="coopcheckbox" value="Co-op" onclick="playstyleWfilter(this)">
+                                            <label class="form-check-label" for="coopCheckbox">Co-op</label>
                                         </div>
                                     </div>
                                 </div>
@@ -203,16 +203,16 @@
                                 <div>
                                     <div class="row container-fluid">
                                         <div class="col-md-auto">
-                                            <input class="form-check-input" type="checkbox" id="EnglishCheckbox" value="option1">
-                                            <label class="form-check-label" for="EnglishCheckbox">English</label>
+                                            <input class="form-check-input" type="checkbox" id="englishCheckbox" value="English" onclick="languageWfilter(this)">
+                                            <label class="form-check-label" for="englishCheckbox">English</label>
                                         </div>
                                         <div class="col-md-auto">
-                                            <input class="form-check-input" type="checkbox" id="ChineseCheckbox" value="option1">
-                                            <label class="form-check-label" for="ChineseCheckbox">Chinese</label>
+                                            <input class="form-check-input" type="checkbox" id="chineseCheckbox" value="Chinese" onclick="languageWfilter(this)">
+                                            <label class="form-check-label" for="chineseCheckbox">Chinese</label>
                                         </div>
                                         <div class="col-md-auto">
-                                            <input class="form-check-input" type="checkbox" id="JapaneseCheckbox" value="option1">
-                                            <label class="form-check-label" for="JapaneseCheckbox">Japanese</label>
+                                            <input class="form-check-input" type="checkbox" id="japaneseCheckbox" value="Japanese" onclick="languageWfilter(this)">
+                                            <label class="form-check-label" for="japaneseCheckbox">Japanese</label>
                                         </div>
                                     </div>
                                 </div>
