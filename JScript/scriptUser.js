@@ -8,6 +8,10 @@ $(document).ready(function() {
     token = (text.split('@'))[1];
     id = (((text.split('@'))[0]).split('='))[1];
     // Get User
+
+    document.getElementById("signInButton").style.display = "none";
+    document.getElementById("userDropDown").style.display = "block";
+
     $.ajax({
             url: "http://localhost:3000/users/details/" + id,
             type: 'GET',
@@ -21,22 +25,23 @@ $(document).ready(function() {
                 document.getElementById('emailLabel').innerHTML = data.email;
                 document.getElementById('addressLabel').innerHTML = data.address;
                 document.getElementById('pointLabel').innerHTML = data.point;
+                document.getElementById("userButton").innerHTML = data.name.first_name;
             }
         })
         // Get History
-        var date;
-        var quantity;
-        var title;
-        var totalPrice;
-        var req = async() => {
-        var res = await fetch(`http://localhost:3000/historys/findByUserId/${id}`,{
+    var date;
+    var quantity;
+    var title;
+    var totalPrice;
+    var req = async() => {
+        var res = await fetch(`http://localhost:3000/historys/findByUserId/${id}`, {
             headers: {
                 'Authorization': 'Bearer ' + token,
-                }
+            }
         })
         var hData = await res.json();
         hData = hData.history;
-        for(var x in hData){
+        for (var x in hData) {
             var history = hData[x];
             date = history.date;
             quantity = history.quantity;
@@ -48,14 +53,14 @@ $(document).ready(function() {
             var url;
             if(stock.type === "DLC"){
                 url = `http://localhost:3000/dlcs/findByDLCId/${stock.itemId}`
-            }else{
+            } else {
                 url = `http://localhost:3000/products/findByProductId/${stock.itemId}`
             }
             var response2 = await fetch(url);
             var iData = await response2.json();
-            if(stock.type === "DLC"){
+            if (stock.type === "DLC") {
                 item = (iData.dlc)[0];
-            }else{
+            } else {
                 item = (iData.product)[0];
             }
             title = item.name;
@@ -67,9 +72,9 @@ $(document).ready(function() {
                                                                     <td>${totalPrice}</td>
                                                                 </tr>`
         }
-}
+    }
 
-req();
+    req();
 });
 
 function initialData() {
@@ -139,6 +144,14 @@ function reset(BtnID) {
     document.getElementById(BtnID).value = "";
 }
 
-function backToIndex(){
-    window.location.href = "index.html" + "?token="+ token;
-  }
+function backToIndex() {
+    window.location.href = "index.html" + "?token=" + token;
+}
+
+function chooseCart() {
+    window.location.href = "cart.html" + "?token=" + token;
+}
+
+function logout() {
+    window.location.href = "index.html";
+}

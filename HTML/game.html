@@ -13,184 +13,286 @@
 
 <body id="main">
     <!-- Nav Bar -->
-    <div id="navBar">
+    <div>
         <nav class="navbar navbar-dark bg-dark">
             <!-- Nav title click to home -->
-                <span class="navbar-brand brandTitle" onclick="backToIndex()">GameStore</span>
-        </nav>
-    </div>
-
-    <!-- Hide window [some game descript] -->
-    <div id="mySidebar" class="sidebar">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <div class="container">
-            <div class="row">
-                <!-- Release date row -->
-                <div class="col text-white mb-3">Release Date:</div>
-                <div class="col text-white mb-3" id="releaseDate">9 Aug, 2018</div>
-                <div class="w-100 mb-3" style="border-bottom: 2px solid white"></div>
-
-                <!-- developer name row -->
-                <div class="col text-white mb-3">Developer:</div>
-                <div class="col text-white mb-3" id="developer">CAPCOM Co., Ltd.</div>
-                <div class="w-100 mb-3" style="border-bottom: 2px solid white"></div>
-
-                <!-- publisher name row -->
-                <div class="col text-white mb-3">Publisher:</div>
-                <div class="col text-white mb-3" id="publisher">CAPCOM Co., Ltd.</div>
-                <div class="w-100 mb-3" style="border-bottom: 2px solid white"></div>
-
-                <!-- category row -->
-                <div class="col text-white mb-3">Category:</div>
-                <div class="col text-white mb-3" id="category">Action</div>
-                <div class="w-100 mb-3" style="border-bottom: 2px solid white"></div>
-
-                <!-- playstyle row -->
-                <div class="col text-white mb-3">Type of Playing:</div>
-                <div class="col text-white mb-3" id="tOPlaying">Single, Multiplayer, Co-op</div>
-                <div class="w-100 mb-3" style="border-bottom: 2px solid white"></div>
-
-                <!-- language row -->
-                <div class="col text-white mb-3">Language:</div>
-                <div class="col text-white mb-3" id="language">English, Japanese, French, German</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Main window -->
-    <div>
-        <div class="imagewrap mb-3">
-            <img src="picture.png" class="main" alt="example of game" width="1440px" height="500px" id="gamePicture">
-            <div class="tagPriceAndBuy">
-                <div class="alert alert-success text-center" role="alert" style="margin-bottom: 0" id="gamePrice">
-                    1440 Baht
+            <span class="navbar-brand brandTitle" onclick="backToIndex()">GameStore</span>
+            <form class="form-inlin">
+                <div class="btn-group dropleft" id="userDropDown">
+                    <button id="userButton" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    </button>
+                    <div class="dropdown-menu">
+                        <a onclick="chooseUser()" class="dropdown-item" href="#">Information</a>
+                        <a onclick="chooseCart()" class="dropdown-item" href="#">Cart</a>
+                        <div class="dropdown-divider"></div>
+                        <a onclick="logout()" class="dropdown-item" href="#">Logout</a>
+                    </div>
                 </div>
-                <button class="btn btn-success btn-lg btn-block" id="buyButton" data-toggle="modal" data-target="#buyModal"> BUY </button>
-                <button class="openbtn btn-block btn-lg" onclick="openNav()" style="margin: 0">&#9776; Game detail</button>
-            </div>
-        </div>
+                <button id="signInButton" type="button" class="btn btn-light" data-toggle="modal" data-target="#loginModal">Sign in</button>
+                <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
 
-        <!-- -->
-        <div class="container-fluid">
-            <!-- title row -->
-            <div class="row">
-                <div class="col-md-2 text-right titleBlock">
-                    Title
-                </div>
-                <div class="col-md-10 titleBlock">
-                    <div class="row">
-                        <div class="col-md-5 text-left" id="gameTitle">
-                            Monster Hunter world
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="loginModalLabel">Sign in</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+
+                            <div class="modal-body setCenter setMarginAuto">
+                                <form class>
+                                    <div class="form-group row mb-3">
+                                        <label for="inputID" class="col-sm-2 col-form-label">Email</label>
+                                        <div class="col-sm-10">
+                                            <input value="new@ku.th" type="text" class="form-control" id="inputID" placeholder="Email" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+                                        <div class="col-sm-10">
+                                            <input value="123456" type="password" class="form-control" id="inputPassword" placeholder="Password" required>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" onclick="login()" class="btn btn-primary">Sign in</button>
+                                <button type="button" onclick="change()" id="regisBtn" class="btn btn-danger" style="position: absolute; left: 10px;">Sign up</button>
+                            </div>
                         </div>
-                        <div class="col-md-7 rounded text-center">
-                            <div class="alert alert-secondary" style="width: 200px; font-size:20px">
-                                In Stock <span class="badge badge-light" id="stockQuantity"></span>
-                                <span class="sr-only">unread messages</span>
+                    </div>
+            </form>
+        </nav>
+
+        <!-- Register form -->
+        <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="loginModalLabel">Sign up</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <form>
+                            <div class="row" style="padding-bottom:8px;">
+                                <div class="col-md-5">
+                                    <input type="text" class="form-control" placeholder="First name" id="firstNameInput" required>
+                                </div>
+                                <div class="col-md-5" style="padding-inline-end: 10px; padding-inline-start: 5px">
+                                    <input type="text" class="form-control" placeholder="Last name" id="lastNameInput" required>
+                                </div>
+                                <div class="col-md-2" style="padding-inline-start: 2px">
+                                    <input type="number" class="form-control" placeholder="Age" id="ageInput" required>
+                                </div>
+                            </div>
+
+                            <div class="row" style="padding-bottom:8px;">
+                                <div class="col">
+                                    <input type="email" class="form-control" placeholder="Email" id="emailInput" required>
+                                </div>
+                            </div>
+
+                            <div class="row" style="padding-bottom:8px;">
+                                <div class="col">
+                                    <input type="text" class="form-control" placeholder="Password" id="passwordInput" required>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <textarea class="form-control" id="addressInput" rows="3" placeholder="Address" id="addressInput"></textarea>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col">
+                                    <button class="btn btn-primary btn-lg btn-block" type="button" onclick="signUp()">Sign UP</button>
+                                </div>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hide window [some game descript] -->
+        <div id="mySidebar" class="sidebar">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <div class="container">
+                <div class="row">
+                    <!-- Release date row -->
+                    <div class="col text-white mb-3">Release Date:</div>
+                    <div class="col text-white mb-3" id="releaseDate">9 Aug, 2018</div>
+                    <div class="w-100 mb-3" style="border-bottom: 2px solid white"></div>
+
+                    <!-- developer name row -->
+                    <div class="col text-white mb-3">Developer:</div>
+                    <div class="col text-white mb-3" id="developer">CAPCOM Co., Ltd.</div>
+                    <div class="w-100 mb-3" style="border-bottom: 2px solid white"></div>
+
+                    <!-- publisher name row -->
+                    <div class="col text-white mb-3">Publisher:</div>
+                    <div class="col text-white mb-3" id="publisher">CAPCOM Co., Ltd.</div>
+                    <div class="w-100 mb-3" style="border-bottom: 2px solid white"></div>
+
+                    <!-- category row -->
+                    <div class="col text-white mb-3">Category:</div>
+                    <div class="col text-white mb-3" id="category">Action</div>
+                    <div class="w-100 mb-3" style="border-bottom: 2px solid white"></div>
+
+                    <!-- playstyle row -->
+                    <div class="col text-white mb-3">Type of Playing:</div>
+                    <div class="col text-white mb-3" id="tOPlaying">Single, Multiplayer, Co-op</div>
+                    <div class="w-100 mb-3" style="border-bottom: 2px solid white"></div>
+
+                    <!-- language row -->
+                    <div class="col text-white mb-3">Language:</div>
+                    <div class="col text-white mb-3" id="language">English, Japanese, French, German</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main window -->
+        <div>
+            <div class="imagewrap mb-3">
+                <img src="picture.png" class="main" alt="example of game" width="1440px" height="500px" id="gamePicture">
+                <div class="tagPriceAndBuy">
+                    <div class="alert alert-success text-center" role="alert" style="margin-bottom: 0" id="gamePrice">
+                        1440 Baht
+                    </div>
+                    <button class="btn btn-success btn-lg btn-block" id="buyButton" data-toggle="modal" data-target="#buyModal"> BUY </button>
+                    <button class="openbtn btn-block btn-lg" onclick="openNav()" style="margin: 0">&#9776; Game detail</button>
+                </div>
+            </div>
+
+            <!-- -->
+            <div class="container-fluid">
+                <!-- title row -->
+                <div class="row">
+                    <div class="col-md-2 text-right titleBlock">
+                        Title
+                    </div>
+                    <div class="col-md-10 titleBlock">
+                        <div class="row">
+                            <div class="col-md-5 text-left" id="gameTitle">
+                                Monster Hunter world
+                            </div>
+                            <div class="col-md-7 rounded text-center">
+                                <div class="alert alert-secondary" style="width: 200px; font-size:20px">
+                                    In Stock <span class="badge badge-light" id="stockQuantity"></span>
+                                    <span class="sr-only">unread messages</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- description row -->
-            <div class="row mb-3">
-                <div class="col-md-2 text-right titleBlock">
-                    Description
-                </div>
-                <div class="col-md-10 titleBlock" id="gameDescription">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum, nisi lorem egestas vitae scel<span id="more">erisque enim 
+                <!-- description row -->
+                <div class="row mb-3">
+                    <div class="col-md-2 text-right titleBlock">
+                        Description
+                    </div>
+                    <div class="col-md-10 titleBlock" id="gameDescription">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum, nisi lorem egestas vitae scel<span id="more">erisque enim 
                             ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa. Fusce luctus vestibulum 
                             augue ut aliquet. Nunc sagittis dictum nisi, sed ullamcorper ipsum dignissim ac. In at libero sed nunc venenatis imperdiet 
                             sed ornare turpis. Donec vitae dui eget tellus gravida venenatis. Integer fringilla congue eros non fermentum. Sed dapibus 
                             pulvinar nibh tempor porta.</span>
-                        <a href="#" onclick="show()" id="dots">...</a>
-                    </p>
+                            <a href="#" onclick="show()" id="dots">...</a>
+                        </p>
+                    </div>
                 </div>
-            </div>
 
-            <!-- dlc and aceivement button -->
-            <div class="container-fluid mb-3">
-                <div class="row">
-                    <div class="col-md-6 text-center">
-                        <button class="btn btn-secondary btn-lg btn-block" onclick="showDLC()">
+                <!-- dlc and aceivement button -->
+                <div class="container-fluid mb-3">
+                    <div class="row">
+                        <div class="col-md-6 text-center">
+                            <button class="btn btn-secondary btn-lg btn-block" onclick="showDLC()">
                             DLC
                         </button>
-                    </div>
-                    <div class="col-md-6 text-center">
-                        <button class="btn btn-secondary btn-lg btn-block" onclick="showAchievement()">
+                        </div>
+                        <div class="col-md-6 text-center">
+                            <button class="btn btn-secondary btn-lg btn-block" onclick="showAchievement()">
                             Achievement
                         </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collapse" id="dlcCollapse">
+                    <div class="card card-body">
+                        <table class="table table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col">Title</th>
+                                    <th scope="col">Price</th>
+                                </tr>
+                            </thead>
+                            <tbody id="gameDLC">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="collapse" id="achievementCollapse">
+                    <div class="card card-body">
+                        <table class="table table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col">Title</th>
+                                    <th scope="col">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody id="gameAchievement">
+                                <tr>
+                                    <td>LOL</td>
+                                    <td>China number one</td>
+                                </tr>
+                                <tr>
+                                    <td>GOD</td>
+                                    <td>kill monster without weapon</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- buy process modal-->
+        <div class="modal fade" id="buyModal" tabindex="-1" role="dialog" aria-labelledby="BuyModalTitleLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="BuyModalTitleLabel"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                    </div>
+                    <div class="modal-body container text-center">
+                        <label for="inputQuantity" style="padding-inline-end: 20px; font-size: 20px">Quantity</label>
+                        <input type="number" placeholder="quantity" id="inputQuantity" class="form-control" required value=1 onclick="reset()">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" onclick="goCart()">Go to Cart</button>
+                        <button type="button" class="btn btn-primary" onclick="contShopping()">Continue shopping</button>
                     </div>
                 </div>
             </div>
-
-            <div class="collapse" id="dlcCollapse">
-                <div class="card card-body">
-                    <table class="table table-hover">
-                        <thead class="table-dark">
-                            <tr>
-                                <th scope="col">Title</th>
-                                <th scope="col">Price</th>
-                            </tr>
-                        </thead>
-                        <tbody id="gameDLC">
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="collapse" id="achievementCollapse">
-                <div class="card card-body">
-                    <table class="table table-hover">
-                        <thead class="table-dark">
-                            <tr>
-                                <th scope="col">Title</th>
-                                <th scope="col">Description</th>
-                            </tr>
-                        </thead>
-                        <tbody id="gameAchievement">
-                            <tr>
-                                <td>LOL</td>
-                                <td>China number one</td>
-                            </tr>
-                            <tr>
-                                <td>GOD</td>
-                                <td>kill monster without weapon</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
         </div>
-    </div>
 
-    <!-- buy process modal-->
-    <div class="modal fade" id="buyModal" tabindex="-1" role="dialog" aria-labelledby="BuyModalTitleLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="BuyModalTitleLabel"></h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body container text-center">
-                    <label for="inputQuantity" style="padding-inline-end: 20px; font-size: 20px">Quantity</label>
-                    <input type="number" placeholder="quantity" id="inputQuantity" class="form-control" required value=1 onclick="reset()">
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" onclick="goCart()">Go to Cart</button>
-                  <button type="button" class="btn btn-primary" onclick="contShopping()">Continue shopping</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
-    <script src="../JScript/scriptGame.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+        <script src="../JScript/scriptGame.js"></script>
 </body>
 
 </html>
