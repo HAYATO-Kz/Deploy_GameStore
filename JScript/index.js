@@ -12,9 +12,11 @@ $(document).ready(function() {
     var queryString = decodeURIComponent(window.location.search);
     if (queryString.includes('token=')) {
         token = (queryString.split('='))[1];
+    }else{
+        window.location.href = "index.html?token=undefined";
     }
 
-    if (typeof token === 'undefined') {
+    if (token === 'undefined') {
         document.getElementById("signInButton").style.display = "block";
         document.getElementById("userDropDown").style.display = "none";
     } else {
@@ -30,6 +32,7 @@ $(document).ready(function() {
         );
 
         userID = JSON.parse(base64).userId;
+
         $.ajax({
             url: "http://localhost:3000/users/details/" + userID,
             type: "GET",
@@ -80,14 +83,12 @@ function reRun(products) {
     showGame.innerHTML = "";
     for (var x in products) {
         var game = products[x];
-        showGame.innerHTML += `<div class="card" style="width: 325px;margin:10px;" onclick="chooseGame('${
-      game._id
-    }')">
+        showGame.innerHTML += `<div class="card" style="width: 325px;margin:10px; border: 2px solid black" onclick="chooseGame('${game._id}','${game.ageRate}')">   
                                 <img class="card-img-top" src="http://localhost:3000/${
                                   game.productImage
                                 }" alt="Card image cap">
-                                <div class="card-body">
-                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <div class="card-body text-center">
+                                    ${game.name}
                                 </div>
                             </div>
                             `;
@@ -99,8 +100,45 @@ function change() {
     $("#registerModal").modal("show");
 }
 
-function chooseGame(id) {
-    window.location.href = "game.html" + "?id=" + id + "@" + token;
+function chooseGame(id,rate) {
+    var age ;
+    if(token==="undefined"){
+        $('#inputAge').modal('show');
+        document.getElementById('dateBtn').value = rate+"-"+id;
+        return;
+    }
+    var request = async() => {
+        var response = await fetch(`http://localhost:3000/users/details/${userID}`,{
+            headers: {
+                'Authorization': 'Bearer ' + token,
+            }
+        });
+        var uData = await response.json();
+        var user =(uData.user)[0];
+        console.log(user);
+        age = user.age;
+        checkAgeRate(age,rate,id);
+    }
+    request();
+}
+
+function setAge(btn) {
+    var buttonT = (btn.value).split('-');
+    var rate = buttonT[0];
+    var id = buttonT[1];
+    console.log(rate);
+    var date = document.getElementById('dateInput').value;
+    date = date.split('-');
+    var age = calculate_age(new Date(date[0],date[1],date[2]))
+    checkAgeRate(age,rate,id);
+}
+
+function checkAgeRate(age,rate,id){
+    if(age < rate){
+        alert("THIS GAME MAY CONTAIN CONTENT NOT APPROPRIATE FOR ALL AGES");
+    }else{
+        window.location.href = "game.html" + "?id=" + id + "@" + token;
+    }
 }
 
 function chooseUser() {
@@ -109,6 +147,13 @@ function chooseUser() {
 
 function chooseCart() {
     window.location.href = "cart.html" + "?token=" + token;
+}
+
+function calculate_age(dob) { 
+    var diff_ms = Date.now() - dob.getTime();
+    var age_dt = new Date(diff_ms); 
+  
+    return Math.abs(age_dt.getUTCFullYear() - 1970);
 }
 
 function search() {
@@ -120,7 +165,8 @@ function search() {
         })
         .then(function(data) {
             var id = data.product[0]._id;
-            chooseGame(id);
+            var rate = (data.product)[0].ageRate;
+            chooseGame(id,rate);
         });
 }
 

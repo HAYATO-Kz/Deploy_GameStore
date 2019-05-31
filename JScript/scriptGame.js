@@ -1,6 +1,5 @@
 var pID;
 var sQuantity;
-
 var user;
 var token;
 var userID;
