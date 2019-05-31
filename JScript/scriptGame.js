@@ -150,15 +150,12 @@ $(document).ready(function() {
             }
 
     for(var x in game.achievementId){
-      // console.log(game.achievementId);
       var id = (game.achievementId)[x];
-      console.log(id);
       fetch(`http://cd-game-store.herokuapp.com/achievements/findByAchievementId/${id}`)
       .then(function(resp) {
         return resp.json();
       })
       .then(function(dataAch){
-        // console.log(dataAch);
           var ach = (dataAch.achievement)[0];
           if(ach.length===0){
             return;

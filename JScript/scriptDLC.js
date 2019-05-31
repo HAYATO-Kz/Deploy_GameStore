@@ -183,6 +183,12 @@ function changeToCartPage() {
 function goCart() {
     var stockID;
 
+    if(token === "undefined"){
+      $('#buyModal').modal('hide');
+      $('#loginModal').modal('show');
+      return;
+    }
+
     var base64Url = token.split('.')[1];
     var base64 = decodeURIComponent(atob(base64Url).split('').map(function(c) {
         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
@@ -227,6 +233,12 @@ function goCart() {
 
 function contShopping() {
     var stockID;
+
+    if(token === "undefined"){
+      $('#buyModal').modal('hide');
+      $('#loginModal').modal('show');
+      return;
+    }
 
     var base64Url = token.split('.')[1];
     var base64 = decodeURIComponent(atob(base64Url).split('').map(function(c) {
@@ -283,7 +295,7 @@ function chooseCart() {
 }
 
 function logout() {
-  window.location.href = "dlc.html" + "?id=" + dID + "@" + "undefined";
+  window.location.href = "DLC.html" + "?id=" + dID + "@" + "undefined";
 }
 
 function change() {
