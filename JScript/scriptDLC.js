@@ -402,7 +402,7 @@ function login() {
               res.user[0].name.first_name;
       }
   });
-  window.location.href = "dlc.html" + "?id=" + dID + "@" + token;
+  window.location.href = "DLC.html" + "?id=" + dID + "@" + token;
 }
 
 function updateUser(json) {
