@@ -25,7 +25,7 @@ $(document).ready(function() {
         userID = user.userId;
 
         $.ajax({
-            url: "http://localhost:3000/users/details/" + userID,
+            url: "http://cd-game-store.herokuapp.com/users/details/" + userID,
             type: "GET",
             beforeSend: function(req) {
                 req.setRequestHeader("Authorization", "Bearer " + token);
@@ -40,7 +40,7 @@ $(document).ready(function() {
         document.getElementById("userDropDown").style.display = "block";
     }
 
-    fetch(`http://localhost:3000/stocks/findById/${pID}`)
+    fetch(`http://cd-game-store.herokuapp.com/stocks/findById/${pID}`)
         .then(function(res) {
             return res.json();
         })
@@ -49,14 +49,14 @@ $(document).ready(function() {
             document.getElementById("stockQuantity").innerHTML = sQuantity;
         });
 
-    fetch(`http://localhost:3000/products/findByProductId/${pID}`)
+    fetch(`http://cd-game-store.herokuapp.com/products/findByProductId/${pID}`)
         .then(function(response) {
             return response.json();
         })
         .then(function(data) {
             var game = data.product[0];
             document.getElementById("gamePrice").innerHTML = game.price + " baht";
-            document.getElementById("gamePicture").src = `http://localhost:3000/${
+            document.getElementById("gamePicture").src = `http://cd-game-store.herokuapp.com/${
         game.productImage
       }`;
             document.getElementById("gameTitle").innerHTML = game.name;
@@ -129,7 +129,7 @@ $(document).ready(function() {
 
             for (var x in game.dlcId) {
                 var id = game.dlcId[x];
-                fetch(`http://localhost:3000/dlcs/findByDLCId/${id}`)
+                fetch(`http://cd-game-store.herokuapp.com/dlcs/findByDLCId/${id}`)
                     .then(function(res) {
                         return res.json();
                     })
@@ -153,7 +153,7 @@ $(document).ready(function() {
       // console.log(game.achievementId);
       var id = (game.achievementId)[x];
       console.log(id);
-      fetch(`http://localhost:3000/achievements/findByAchievementId/${id}`)
+      fetch(`http://cd-game-store.herokuapp.com/achievements/findByAchievementId/${id}`)
       .then(function(resp) {
         return resp.json();
       })
@@ -250,7 +250,7 @@ function goCart() {
         return;
       }
     $(`#buyModal`).modal("hide");
-    fetch(`http://localhost:3000/stocks/findById/${pID}`)
+    fetch(`http://cd-game-store.herokuapp.com/stocks/findById/${pID}`)
         .then(function(res) {
             return res.json();
         })
@@ -263,7 +263,7 @@ function goCart() {
                 quantity: quantity
             };
 
-            var url = "http://localhost:3000/carts/create";
+            var url = "http://cd-game-store.herokuapp.com/carts/create";
             $.ajax({
                 dataType: "json",
                 url: url,
@@ -307,7 +307,7 @@ function contShopping() {
         return;
       }
     $(`#buyModal`).modal("hide");
-    fetch(`http://localhost:3000/stocks/findById/${pID}`)
+    fetch(`http://cd-game-store.herokuapp.com/stocks/findById/${pID}`)
         .then(function(res) {
             return res.json();
         })
@@ -320,7 +320,7 @@ function contShopping() {
                 quantity: quantity
             };
 
-            var url = "http://localhost:3000/carts/create";
+            var url = "http://cd-game-store.herokuapp.com/carts/create";
             $.ajax({
                 dataType: "json",
                 url: url,
@@ -387,7 +387,7 @@ function signUp() {
           address: address
       };
 
-      var url = "http://localhost:3000/users/signup";
+      var url = "http://cd-game-store.herokuapp.com/users/signup";
 
       $.ajax({
           dataType: "json",
@@ -408,7 +408,7 @@ function login() {
       alert("Please fill all field");
       return 0;
   }
-  var url = 'http://localhost:3000/users/login';
+  var url = 'http://cd-game-store.herokuapp.com/users/login';
 
   var data = {
       email: email,
@@ -444,7 +444,7 @@ function login() {
 
   // Get User Json
   $.ajax({
-      url: "http://localhost:3000/users/details/" + userID,
+      url: "http://cd-game-store.herokuapp.com/users/details/" + userID,
       type: "GET",
       beforeSend: function(req) {
           req.setRequestHeader("Authorization", "Bearer " + token);

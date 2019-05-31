@@ -34,7 +34,7 @@ $(document).ready(function() {
         userID = JSON.parse(base64).userId;
 
         $.ajax({
-            url: "http://localhost:3000/users/details/" + userID,
+            url: "http://cd-game-store.herokuapp.com/users/details/" + userID,
             type: "GET",
             beforeSend: function(req) {
                 req.setRequestHeader("Authorization", "Bearer " + token);
@@ -48,7 +48,7 @@ $(document).ready(function() {
         document.getElementById("userDropDown").style.display = "block";
     }
 
-    fetch("http://localhost:3000/products")
+    fetch("http://cd-game-store.herokuapp.com/products")
         .then(function(response) {
             return response.json();
         })
@@ -78,13 +78,12 @@ function ranRun(product){
 }
 
 function reRun(products) {
-    console.log(products)
     var showGame = document.getElementById("showGame");
     showGame.innerHTML = "";
     for (var x in products) {
         var game = products[x];
         showGame.innerHTML += `<div class="card" style="width: 325px;margin:10px; border: 2px solid black" onclick="chooseGame('${game._id}','${game.ageRate}')">   
-                                <img class="card-img-top" src="http://localhost:3000/${
+                                <img class="card-img-top" src="http://cd-game-store.herokuapp.com/${
                                   game.productImage
                                 }" alt="Card image cap">
                                 <div class="card-body text-center">
@@ -108,14 +107,13 @@ function chooseGame(id,rate) {
         return;
     }
     var request = async() => {
-        var response = await fetch(`http://localhost:3000/users/details/${userID}`,{
+        var response = await fetch(`http://cd-game-store.herokuapp.com/users/details/${userID}`,{
             headers: {
                 'Authorization': 'Bearer ' + token,
             }
         });
         var uData = await response.json();
         var user =(uData.user)[0];
-        console.log(user);
         age = user.age;
         checkAgeRate(age,rate,id);
     }
@@ -126,7 +124,6 @@ function setAge(btn) {
     var buttonT = (btn.value).split('-');
     var rate = buttonT[0];
     var id = buttonT[1];
-    console.log(rate);
     var date = document.getElementById('dateInput').value;
     date = date.split('-');
     var age = calculate_age(new Date(date[0],date[1],date[2]))
@@ -159,7 +156,7 @@ function calculate_age(dob) {
 function search() {
     var title = document.getElementById("searchTitle").value;
 
-    fetch(`http://localhost:3000/products/findByName/${title}`)
+    fetch(`http://cd-game-store.herokuapp.com/products/findByName/${title}`)
         .then(function(response) {
             return response.json();
         })
@@ -202,7 +199,7 @@ function signUp() {
             address: address
         };
 
-        var url = "http://localhost:3000/users/signup";
+        var url = "http://cd-game-store.herokuapp.com/users/signup";
 
         $.ajax({
             dataType: "json",
@@ -223,7 +220,7 @@ function login() {
         alert("Please fill all field");
         return 0;
     }
-    var url = 'http://localhost:3000/users/login';
+    var url = 'http://cd-game-store.herokuapp.com/users/login';
 
     var data = {
         email: email,
@@ -259,7 +256,7 @@ function login() {
 
     // Get User Json
     $.ajax({
-        url: "http://localhost:3000/users/details/" + userID,
+        url: "http://cd-game-store.herokuapp.com/users/details/" + userID,
         type: "GET",
         beforeSend: function(req) {
             req.setRequestHeader("Authorization", "Bearer " + token);
@@ -295,7 +292,6 @@ function categoryWfilter(checkBox) {
     }
  
     getWFilter();
-    // console.log(category);
  }
  
  function playstyleWfilter(checkBox) {
@@ -316,7 +312,7 @@ function categoryWfilter(checkBox) {
     if (checkBoxStatus) {
         language.push('"' + labelValue + '"');
     } else {
-        var index = langauge.indexOf(labelValue);
+        var index = language.indexOf(labelValue);
         language.splice(index, 1);
     }
     getWFilter();
@@ -333,29 +329,28 @@ function categoryWfilter(checkBox) {
         language = '"NA"';
     }
     var nCategory = `${category}`;
-    // if (category.length >= 2) {
-    //     categry = '[' + nCategory + ']';
-    // }
-    // var date = { "year": dd[0], "month": dd[1], "day": dd[2] };
-    var productWF = `{"price":[${price}],"category":[${nCategory}],"typeOfPlaying":[${playstyle}],"language":[${language}]}`;
-    // console.log(category);
-    // console.log(productWF);
-    // var json = JSON.parse(productWF);
-    // console.log(json);
+    var nLanguage = `${language}`;
+    var nPlaystyle = `${playstyle}`
+    var productWF = `{"price":[${price}],"category":[${nCategory}],"typeOfPlaying":[${nPlaystyle}],"language":[${nLanguage}]}`;
  
-    var url = "http://localhost:3000/products/findByFilter/" + productWF;
+    var url = "http://cd-game-store.herokuapp.com/products/findByFilter/" + productWF;
     if (category == '"NA"' && playstyle == '"NA"' && language == '"NA"') {
-        url = "http://localhost:3000/products";
+        url = "http://cd-game-store.herokuapp.com/products/";
     }
-    console.log(url);
+    // console.log(url);
     fetch(url)
         .then(function(response) {
             return response.json();
         })
         .then(function(data) {
             console.log(data);
+            if(url === "http://cd-game-store.herokuapp.com/products/" ){
+                data = data.products;
+                ranRun(data);
+            }else{
             product = data.product;
             reRun(product);
+            }
         });
 
         if (category == '"NA"') {

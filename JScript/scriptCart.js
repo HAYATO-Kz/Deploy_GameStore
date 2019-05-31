@@ -22,7 +22,7 @@ $(document).ready(function() {
         document.getElementById("userDropDown").style.display = "none";
     } else {
         $.ajax({
-            url: "http://localhost:3000/users/details/" + userID,
+            url: "http://cd-game-store.herokuapp.com/users/details/" + userID,
             type: "GET",
             beforeSend: function(req) {
                 req.setRequestHeader("Authorization", "Bearer " + token);
@@ -38,19 +38,19 @@ $(document).ready(function() {
     }
 
     const request = async() => {
-        const response1 = await fetch(`http://localhost:3000/carts/${userID}`);
+        const response1 = await fetch(`http://cd-game-store.herokuapp.com/carts/${userID}`);
         const data1 = await response1.json();
         dataCart = data1.carts;
         for (var x in dataCart) {
             var list = dataCart[x];
             pQuantity = list.quantity;
             cartID = list._id;
-            var response2 = await fetch(`http://localhost:3000/stocks/findByStockId/${list.stock}`);
+            var response2 = await fetch(`http://cd-game-store.herokuapp.com/stocks/findByStockId/${list.stock}`);
             var data2 = await response2.json();
             var stock = (data2.stock)[0];
-            url = `http://localhost:3000/products/findByProductId/${stock.itemId}`
+            url = `http://cd-game-store.herokuapp.com/products/findByProductId/${stock.itemId}`
             if (stock.type === "DLC") {
-                url = `http://localhost:3000/dlcs/findByDLCId/${stock.itemId}`
+                url = `http://cd-game-store.herokuapp.com/dlcs/findByDLCId/${stock.itemId}`
             }
             var response3 = await fetch(url);
             var data3 = await response3.json();
@@ -99,7 +99,7 @@ $(document).ready(function() {
 
 function deleteRow(cID, docID) {
     $.ajax({
-        url: `http://localhost:3000/carts/delete/${cID}`,
+        url: `http://cd-game-store.herokuapp.com/carts/delete/${cID}`,
         type: 'DELETE',
         success: function(res) {
             docID.closest("tr").remove();
@@ -129,7 +129,7 @@ function endBuyProcess() {
             "quantity": quantity,
             "date": date
         };
-        var url = `http://localhost:3000/historys/create`
+        var url = `http://cd-game-store.herokuapp.com/historys/create`
         $.ajax({
             dataType: 'json',
             url: url,
@@ -145,7 +145,7 @@ function endBuyProcess() {
         }];
         $.ajax({
             dataType: "json",
-            url: `http://localhost:3000/stocks/update/${stockId}`,
+            url: `http://cd-game-store.herokuapp.com/stocks/update/${stockId}`,
             type: "PATCH",
             data: JSON.stringify(data2),
             headers: {
@@ -155,7 +155,7 @@ function endBuyProcess() {
     }
 
     $.ajax({
-        url: "http://localhost:3000/carts/deleteAll/" + userID,
+        url: "http://cd-game-store.herokuapp.com/carts/deleteAll/" + userID,
         type: 'DELETE',
         success: function() {
             window.location.reload();
@@ -186,7 +186,7 @@ function edit(id,sQuantity) {
     }];
     $.ajax({
         dataType: "json",
-        url: `http://localhost:3000/carts/update/${id}`,
+        url: `http://cd-game-store.herokuapp.com/carts/update/${id}`,
         type: "PATCH",
         data: JSON.stringify(data),
         headers: {

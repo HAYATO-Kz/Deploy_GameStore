@@ -10,7 +10,7 @@ $(document).ready(function() {
     // Get User
 
     $.ajax({
-            url: "http://localhost:3000/users/details/" + id,
+            url: "http://cd-game-store.herokuapp.com/users/details/" + id,
             type: 'GET',
             beforeSend: function(req) {
                 req.setRequestHeader('Authorization', 'Bearer ' + token);
@@ -31,7 +31,7 @@ $(document).ready(function() {
     var title;
     var totalPrice;
     var req = async() => {
-        var res = await fetch(`http://localhost:3000/historys/findByUserId/${id}`, {
+        var res = await fetch(`http://cd-game-store.herokuapp.com/historys/findByUserId/${id}`, {
             headers: {
                 'Authorization': 'Bearer ' + token,
             }
@@ -44,14 +44,14 @@ $(document).ready(function() {
             quantity = history.quantity;
             var itemId = history.item;
 
-            var itemResponse = await fetch(`http://localhost:3000/stocks/findByStockId/${itemId}`)
+            var itemResponse = await fetch(`http://cd-game-store.herokuapp.com/stocks/findByStockId/${itemId}`)
             var sData = await itemResponse.json();
             var stock = (sData.stock)[0];
             var url;
             if(stock.type === "DLC"){
-                url = `http://localhost:3000/dlcs/findByDLCId/${stock.itemId}`
+                url = `http://cd-game-store.herokuapp.com/dlcs/findByDLCId/${stock.itemId}`
             } else {
-                url = `http://localhost:3000/products/findByProductId/${stock.itemId}`
+                url = `http://cd-game-store.herokuapp.com/products/findByProductId/${stock.itemId}`
             }
             var response2 = await fetch(url);
             var iData = await response2.json();
@@ -122,7 +122,7 @@ function editUser() {
     // Update user 
     $.ajax({
         dataType: 'json',
-        url: "http://localhost:3000/users/update/" + id,
+        url: "http://cd-game-store.herokuapp.com/users/update/" + id,
         type: 'PATCH',
         data: JSON.stringify(data),
         headers: {
