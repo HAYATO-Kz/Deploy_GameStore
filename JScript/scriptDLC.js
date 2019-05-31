@@ -82,8 +82,11 @@ $(document).ready(function() {
   
       // input category
       for(var x in product.category){
+        if(cate==="NA"){
+          continue;
+        }
         var cate = product.category[x];
-        if(cate !== product.category[0]){
+        if(cate !== product.category[1]){
           document.getElementById('category').innerHTML+= ", "
         }
         document.getElementById('category').innerHTML+= cate;
@@ -92,7 +95,10 @@ $(document).ready(function() {
       // input type of playing
       for(var x in product.typeOfPlaying){
         var type = product.typeOfPlaying[x];
-        if(type !== product.typeOfPlaying[0]){
+        if(type==="NA"){
+          continue;
+        }
+        if(type !== product.typeOfPlaying[1]){
           document.getElementById('tOPlaying').innerHTML+= ", "
         }
         document.getElementById('tOPlaying').innerHTML+= type;
@@ -101,7 +107,10 @@ $(document).ready(function() {
       // input language
       for(var x in product.language){
         var language = product.language[x];
-        if(language !== product.language[0]){
+        if(language==="NA"){
+          continue;
+        }
+        if(language !== product.language[1]){
           document.getElementById('language').innerHTML+= ", "
         }
         document.getElementById('language').innerHTML+= language;

@@ -6,6 +6,7 @@ var category = [];
 var playstyle = [];
 var language = [];
 var price = [0, 10000000];
+var rProduct;
 
 $(document).ready(function() {
     var queryString = decodeURIComponent(window.location.search);
@@ -44,18 +45,37 @@ $(document).ready(function() {
         document.getElementById("userDropDown").style.display = "block";
     }
 
-    console.log(token);
     fetch("http://localhost:3000/products")
         .then(function(response) {
             return response.json();
         })
         .then(function(data) {
             product = data.products;
-            reRun(product);
+            ranRun(product);
         });
 });
 
+function ranRun(product){
+    rProduct = [];
+            var usedNumber = [];
+            var min=0; 
+            var max=product.length - 1; 
+            for(var i = 0 ; i < 9; i++){
+                var random = Math.random() * (+max - +min) + +min;
+                random = parseInt(random);
+                if(usedNumber.includes(random)){
+                    i--;
+                    continue;
+                }else{
+                    usedNumber.push(random)
+                }
+                rProduct.push(product[random]);
+            } 
+            reRun(rProduct);
+}
+
 function reRun(products) {
+    console.log(products)
     var showGame = document.getElementById("showGame");
     showGame.innerHTML = "";
     for (var x in products) {
@@ -222,83 +242,83 @@ function categoryWfilter(checkBox) {
     var labelValue = checkBox.value;
     var checkBoxStatus = checkBox.checked;
     if (checkBoxStatus) {
-        category.push(labelValue);
+        category.push('"' + labelValue + '"');
     } else {
         var index = category.indexOf(labelValue);
         category.splice(index, 1);
     }
+ 
     getWFilter();
-}
-
-function playstyleWfilter(checkBox) {
+    // console.log(category);
+ }
+ 
+ function playstyleWfilter(checkBox) {
     var labelValue = checkBox.value;
     var checkBoxStatus = checkBox.checked;
     if (checkBoxStatus) {
-        playstyle.push(labelValue);
+        playstyle.push('"' + labelValue + '"');
     } else {
         var index = playstyle.indexOf(labelValue);
         playstyle.splice(index, 1);
     }
     getWFilter();
-}
-
-function langaugeWfilter(checkBox) {
+ }
+ 
+ function languageWfilter(checkBox) {
     var labelValue = checkBox.value;
     var checkBoxStatus = checkBox.checked;
     if (checkBoxStatus) {
-        langauge.push(labelValue);
+        language.push('"' + labelValue + '"');
     } else {
         var index = langauge.indexOf(labelValue);
         language.splice(index, 1);
     }
     getWFilter();
-}
+ }
 
-function getWFilter() {
+ function getWFilter() {
     if (category.length == 0) {
-        category = 'NA';
+        category = '"NA"';
     }
     if (playstyle.length == 0) {
-        playstyle = 'NA';
+        playstyle = '"NA"';
     }
     if (language.length == 0) {
-        language = 'NA';
+        language = '"NA"';
     }
     var nCategory = `${category}`;
     // if (category.length >= 2) {
     //     categry = '[' + nCategory + ']';
     // }
     // var date = { "year": dd[0], "month": dd[1], "day": dd[2] };
-    // var productWF = `{"price":[${price}],"catagory":${nCategory},"typeOfPlaying":${playstyle},"language":${language}}`;
-    var productWF = {
-        "price":price,
-        "category":category,
-        "typeOfPlaying":playstyle,
-        "langauge":language
-    }
-
-    var json = JSON.stringify(productWF);
-
-    var url = `http://localhost:3000/products/findByFilter/${json}`;
-    if (category == 'NA' && playstyle == 'NA' && language == 'NA') {
+    var productWF = `{"price":[${price}],"category":[${nCategory}],"typeOfPlaying":[${playstyle}],"language":[${language}]}`;
+    // console.log(category);
+    // console.log(productWF);
+    // var json = JSON.parse(productWF);
+    // console.log(json);
+ 
+    var url = "http://localhost:3000/products/findByFilter/" + productWF;
+    if (category == '"NA"' && playstyle == '"NA"' && language == '"NA"') {
         url = "http://localhost:3000/products";
     }
+    console.log(url);
     fetch(url)
         .then(function(response) {
             return response.json();
         })
         .then(function(data) {
-            product = data.products;
+            console.log(data);
+            product = data.product;
             reRun(product);
         });
 
-    if (category == 'NA') {
-        category = [];
-    }
-    if (playstyle == 'NA') {
-        playstyle = [];
-    }
-    if (language == 'NA') {
-        language = [];
-    }
-}
+        if (category == '"NA"') {
+            category = [];
+        }
+        if (playstyle == '"NA"') {
+            playstyle = [];
+        }
+        if (language == '"NA"') {
+            language = [];
+        }
+    }       

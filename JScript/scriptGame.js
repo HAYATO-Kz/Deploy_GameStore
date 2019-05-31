@@ -83,7 +83,10 @@ $(document).ready(function() {
             // input category
             for (var x in game.category) {
                 var cate = game.category[x];
-                if (cate !== game.category[0]) {
+                if(cate==="NA"){
+                  continue;
+                }
+                if (cate !== game.category[1]) {
                     document.getElementById("category").innerHTML += ", ";
                 }
                 document.getElementById("category").innerHTML += cate;
@@ -92,7 +95,10 @@ $(document).ready(function() {
             // input type of playing
             for (var x in game.typeOfPlaying) {
                 var type = game.typeOfPlaying[x];
-                if (type !== game.typeOfPlaying[0]) {
+                if(type==="NA"){
+                  continue;
+                }
+                if (type !== game.typeOfPlaying[1]) {
                     document.getElementById("tOPlaying").innerHTML += ", ";
                 }
                 document.getElementById("tOPlaying").innerHTML += type;
@@ -101,7 +107,10 @@ $(document).ready(function() {
             // input language
             for (var x in game.language) {
                 var language = game.language[x];
-                if (language !== game.language[0]) {
+                if(language==="NA"){
+                  continue;
+                }
+                if (language !== game.language[1]) {
                     document.getElementById("language").innerHTML += ", ";
                 }
                 document.getElementById("language").innerHTML += language;
@@ -142,13 +151,16 @@ $(document).ready(function() {
             }
 
     for(var x in game.achievementId){
+      // console.log(game.achievementId);
       var id = (game.achievementId)[x];
+      console.log(id);
       fetch(`http://localhost:3000/achievements/findByAchievementId/${id}`)
       .then(function(resp) {
         return resp.json();
       })
       .then(function(dataAch){
-          var ach = dataAch.achievement;
+        // console.log(dataAch);
+          var ach = (dataAch.achievement)[0];
           if(ach.length===0){
             return;
           }
