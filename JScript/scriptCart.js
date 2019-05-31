@@ -32,8 +32,6 @@ $(document).ready(function() {
                     res.user[0].name.first_name;
             }
         });
-
-        document.getElementById("signInButton").style.display = "none";
         document.getElementById("userDropDown").style.display = "block";
     }
 
